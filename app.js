@@ -2,7 +2,7 @@ let introOptions = [];
 let methodGroups = [];
 let selects = {};
 let singlePhrases = {};
-const ASSET_VERSION = "11";
+const ASSET_VERSION = "12";
 
 async function loadBausteine() {
   const response = await fetch(`bausteine.json?v=${ASSET_VERSION}`, { cache: 'no-store' });
@@ -340,6 +340,50 @@ function expressionSentenceWithSubject(id, context) {
   return sentences[id] || "";
 }
 
+function groupExpressionSentence(id, expression, context, isFirstSentence) {
+  if (isFirstSentence) {
+    return fillSingleTemplate(expression.group, { subject: context.prefix, pronoun: context.pronoun });
+  }
+
+  const sentences = {
+    aktiv: "Ein aktives und gestaltendes Einbringen war beobachtbar.",
+    zoegerlich: "Der musikalische und verbale Ausdruck blieb zunächst zögerlich.",
+    beobachtend: "Das Verhalten blieb überwiegend beobachtend.",
+    impulsiv: "Der Ausdruck wirkte impulsiv und wenig strukturiert.",
+    orientiert: "Das Verhalten wirkte angepasst und orientiert."
+  };
+  return sentences[id] || fillSingleTemplate(expression.group, { subject: context.prefix, pronoun: context.pronoun });
+}
+
+function extendedSentence(type, id, template, context, isGroupObservation, isFirstSentence) {
+  if (isFirstSentence) {
+    return fillSingleTemplate(template, context);
+  }
+
+  const neutral = {
+    regulation: {
+      stabil: "Die Selbstregulation blieb stabil.",
+      unterstuetzung: "Die Selbstregulation ließ sich durch strukturierende Impulse unterstützen.",
+      ueberfordert: "Bei erhöhter Anforderung war Unterstützung zur Regulation erforderlich.",
+      zunehmend: "Die Selbstregulation gelang zunehmend besser.",
+      struktur: "Auf strukturierende musikalische Impulse erfolgte eine zunehmende Reaktion."
+    },
+    resources: {
+      gut: "Ressourcen waren gut zugänglich.",
+      punktuell: "Ressourcen waren punktuell zugänglich und konnten über musikalische Angebote aktiviert werden.",
+      erschwert: "Ressourcen waren nur erschwert zugänglich.",
+      musik: "Musikalische Angebote erleichterten den Zugang zu Ressourcen.",
+      kaum: "Ressourcen waren kaum zugänglich."
+    }
+  };
+
+  if (isGroupObservation && type === "regulation" && id === "struktur") {
+    return "Eine zunehmende Reaktion auf strukturierende musikalische Impulse war beobachtbar.";
+  }
+
+  return neutral[type][id] || fillSingleTemplate(template, context);
+}
+
 function generateSingleObservation(prefix, subjectOverride, pronounOverride, includeExtended = true, dativeOverride) {
   const isGroupObservation = prefix.startsWith("Bei ");
   const context = {
@@ -369,7 +413,7 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride, inc
     const expressionSentence = !isGroupObservation && !contact
       ? expressionSentenceWithSubject(state.singleExpression, context)
       : isGroupObservation
-      ? fillSingleTemplate(expression.group, { subject: prefix, pronoun: context.pronoun })
+      ? groupExpressionSentence(state.singleExpression, expression, context, lines.length === 0)
       : expression.sentence
         ? expression.sentence
       : "Im Ausdruck " + fillSingleTemplate(expression.single, context) + ".";
@@ -379,7 +423,9 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride, inc
   const affect = singlePhrases.affect[state.singleAffect];
   if (affect) {
     const affectSentence = isGroupObservation
-      ? prefix + " wirkte der Affekt " + affect + "."
+      ? lines.length
+        ? "Affektiv wirkte " + context.pronoun + " " + affect + "."
+        : prefix + " wirkte der Affekt " + affect + "."
       : lines.length
         ? "Affektiv wirkte " + context.pronoun + " " + affect + "."
         : "Affektiv wirkte " + context.subject + " " + affect + ".";
@@ -387,7 +433,7 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride, inc
 
     if (state.version === "lang" && state.singleAffect === "angespannt") {
       lines.push(isGroupObservation
-        ? prefix + " ermöglichten musikalische Angebote eine vorsichtige Regulation."
+        ? "Musikalische Angebote ermöglichten eine vorsichtige Regulation."
         : "Musikalische Angebote ermöglichten eine vorsichtige Regulation.");
     }
   }
@@ -395,15 +441,14 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride, inc
   if (includeExtended) {
     const regulation = singlePhrases.regulation[state.singleRegulation];
     if (regulation) {
-      lines.push(fillSingleTemplate(
-        isGroupObservation ? regulation.group : regulation.single,
-        context
-      ));
+      const template = isGroupObservation ? regulation.group : regulation.single;
+      lines.push(extendedSentence("regulation", state.singleRegulation, template, context, isGroupObservation, lines.length === 0));
     }
 
     const resources = singlePhrases.resources[state.singleResources];
     if (resources) {
-      lines.push(fillSingleTemplate(isGroupObservation ? resources.group : resources.single, context));
+      const template = isGroupObservation ? resources.group : resources.single;
+      lines.push(extendedSentence("resources", state.singleResources, template, context, isGroupObservation, lines.length === 0));
     }
   }
 
