@@ -2,7 +2,7 @@ let introOptions = [];
 let methodGroups = [];
 let selects = {};
 let singlePhrases = {};
-const ASSET_VERSION = "12";
+const ASSET_VERSION = "13";
 
 async function loadBausteine() {
   const response = await fetch(`bausteine.json?v=${ASSET_VERSION}`, { cache: 'no-store' });
@@ -355,9 +355,43 @@ function groupExpressionSentence(id, expression, context, isFirstSentence) {
   return sentences[id] || fillSingleTemplate(expression.group, { subject: context.prefix, pronoun: context.pronoun });
 }
 
+function personInPhrase(context, isGroupObservation) {
+  return isGroupObservation
+    ? context.prefix.replace(/^Bei /, "bei ")
+    : "bei " + context.dative;
+}
+
+function personDative(context, isGroupObservation) {
+  return isGroupObservation ? context.prefix.replace(/^Bei /, "") : context.dative;
+}
+
+function firstExtendedSentence(type, id, context, isGroupObservation) {
+  const inPhrase = personInPhrase(context, isGroupObservation);
+  const dative = personDative(context, isGroupObservation);
+
+  const sentences = {
+    regulation: {
+      stabil: "Die Selbstregulation blieb " + inPhrase + " stabil.",
+      unterstuetzung: "Die Selbstregulation ließ sich " + inPhrase + " durch strukturierende Impulse unterstützen.",
+      ueberfordert: "Bei erhöhter Anforderung benötigte " + dative + " Unterstützung zur Regulation.",
+      zunehmend: "Die Selbstregulation gelang " + dative + " zunehmend besser.",
+      struktur: "Auf strukturierende musikalische Impulse reagierte " + dative + " zunehmend."
+    },
+    resources: {
+      gut: "Ressourcen waren " + inPhrase + " gut zugänglich.",
+      punktuell: "Ressourcen waren " + inPhrase + " punktuell zugänglich und konnten über musikalische Angebote aktiviert werden.",
+      erschwert: "Ressourcen waren " + inPhrase + " nur erschwert zugänglich.",
+      musik: "Musikalische Angebote erleichterten " + inPhrase + " den Zugang zu Ressourcen.",
+      kaum: "Ressourcen waren " + inPhrase + " kaum zugänglich."
+    }
+  };
+
+  return sentences[type][id] || "";
+}
+
 function extendedSentence(type, id, template, context, isGroupObservation, isFirstSentence) {
   if (isFirstSentence) {
-    return fillSingleTemplate(template, context);
+    return firstExtendedSentence(type, id, context, isGroupObservation) || fillSingleTemplate(template, context);
   }
 
   const neutral = {

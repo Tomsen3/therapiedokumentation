@@ -1,11 +1,11 @@
-const CACHE_NAME = "therapiedoku-v12";
+const CACHE_NAME = "therapiedoku-v13";
 const APP_FILES = [
   "./",
   "./index.html",
-  "./styles.css?v=12",
-  "./app.js?v=12",
-  "./bausteine.json?v=12",
-  "./manifest.webmanifest?v=12",
+  "./styles.css?v=13",
+  "./app.js?v=13",
+  "./bausteine.json?v=13",
+  "./manifest.webmanifest?v=13",
   "./icons/icon-192.png",
   "./icons/icon-512.png"
 ];
