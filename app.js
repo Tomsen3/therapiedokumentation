@@ -4,7 +4,7 @@ let selects = {};
 let singlePhrases = {};
 
 async function loadBausteine() {
-  const response = await fetch('bausteine.json', { cache: 'no-cache' });
+  const response = await fetch('bausteine.json?v=3', { cache: 'no-store' });
   if (!response.ok) throw new Error('Bausteine konnten nicht geladen werden.');
   const data = await response.json();
   introOptions = data.introOptions || [];
@@ -17,6 +17,8 @@ function showLoadError(error) {
   const output = document.getElementById('output');
   output.value = 'Die Textbausteine konnten nicht geladen werden. Bitte die Seite neu laden oder die bausteine.json pruefen.';
   document.getElementById('copyStatus').textContent = error.message;
+  document.getElementById('methodList').textContent = 'Textbausteine konnten nicht geladen werden.';
+  document.getElementById('introOptions').textContent = 'Textbausteine konnten nicht geladen werden.';
   autoResizeOutput();
 }
 
@@ -538,7 +540,7 @@ loadBausteine()
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js").catch(() => {
+    navigator.serviceWorker.register("./sw.js?v=3").catch(() => {
       // Die App funktioniert auch ohne Service Worker; Installation/Offline-Modus dann ggf. nicht.
     });
   });
