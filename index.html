@@ -4,14 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Therapiedokumentation</title>
-  <meta name="theme-color" content="#2F6B4F" />
+  <meta name="theme-color" content="#1F6A4B" />
   <meta name="application-name" content="Therapiedokumentation" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Therapiedoku" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <link rel="manifest" href="manifest.webmanifest?v=9" />
+  <link rel="manifest" href="manifest.webmanifest?v=11" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="stylesheet" href="styles.css?v=9" />
+  <link rel="stylesheet" href="styles.css?v=11" />
 </head>
 <body>
   <header>
@@ -24,6 +24,12 @@
   <main class="wrap grid">
     <section class="card main">
       <h2>Dokumentation erfassen</h2>
+
+      <div class="toolbar">
+        <button type="button" class="btn-secondary" id="quickModeBtn">Kurz dokumentieren</button>
+        <button type="button" class="btn-secondary" id="expandAllBtn">Alles aufklappen</button>
+        <button type="button" class="btn-secondary" id="collapseAllBtn">Alles einklappen</button>
+      </div>
 
       <div class="field">
         <label class="block-label">Dokumentationsart</label>
@@ -78,7 +84,12 @@
         <p class="small">Im Text erscheint z. B. „Bei Herrn M.“ oder „Bei Frau Sch.“.</p>
       </div>
 
-      <details class="field">
+      <div class="field core-block">
+        <label class="block-label">Abschlussformulierung</label>
+        <select id="closing"></select>
+      </div>
+
+      <details class="field optional-field" data-watch="docDate,docTime,groupName,station">
         <summary>Rahmendaten</summary>
         <div class="two">
           <div>
@@ -100,12 +111,12 @@
         </div>
       </details>
 
-      <details class="field" id="introField">
+      <details class="field optional-field" id="introField" data-watch="intro">
         <summary>Einstieg</summary>
         <div class="row" id="introOptions"></div>
       </details>
 
-      <details class="field" id="methodsField">
+      <details class="field optional-field" id="methodsField" data-watch="methods">
         <summary>Inhalte und Aktionen <span class="badge">max. 6 auswählen</span></summary>
         <div id="methodNotice" class="notice">Mehr als sechs Methoden machen die Dokumentation träge. Bitte höchstens sechs auswählen.</div>
         <div id="singleModeNotice" class="notice">Dieser Baustein ist für reine Einzeldokumentation nur eingeschränkt sinnvoll und wurde deaktiviert.</div>
@@ -113,37 +124,37 @@
       </details>
 
       <div id="groupCriteria">
-        <details class="field">
-          <summary>Verlauf / Dynamik</summary>
-          <select id="dynamic"></select>
-        </details>
-
-        <details class="field">
-          <summary>Beteiligung / Aktivität</summary>
-          <select id="participation"></select>
-        </details>
-
-        <details class="field">
-          <summary>Emotionaler Zugang</summary>
-          <select id="access"></select>
-        </details>
-
-        <details class="field">
+        <details class="field core-field" data-watch="effect">
           <summary>Wirkung</summary>
           <select id="effect"></select>
         </details>
 
-        <details>
+        <details class="field optional-field" data-watch="dynamic">
+          <summary>Verlauf / Dynamik</summary>
+          <select id="dynamic"></select>
+        </details>
+
+        <details class="field optional-field" data-watch="participation">
+          <summary>Beteiligung / Aktivität</summary>
+          <select id="participation"></select>
+        </details>
+
+        <details class="field optional-field" data-watch="access">
+          <summary>Emotionaler Zugang</summary>
+          <select id="access"></select>
+        </details>
+
+        <details class="optional-field" data-watch="groupClimate,groupDynamics,groupIntegration">
           <summary>Gruppenkriterien erweitern</summary>
-          <details class="field">
+          <details class="field" data-watch="groupClimate">
             <summary>Gruppenklima</summary>
             <select id="groupClimate"></select>
           </details>
-          <details class="field">
+          <details class="field" data-watch="groupDynamics">
             <summary>Gruppendynamik</summary>
             <select id="groupDynamics"></select>
           </details>
-          <details class="field">
+          <details class="field" data-watch="groupIntegration">
             <summary>Einbindung Einzelner</summary>
             <select id="groupIntegration"></select>
           </details>
@@ -151,37 +162,32 @@
       </div>
 
       <div id="singleCriteria" style="display:none;">
-        <details class="field">
+        <details class="field core-field" data-watch="singleContact">
           <summary>Kontakt</summary>
           <select id="singleContact"></select>
         </details>
-        <details class="field">
-          <summary>Ausdruck / Verhalten</summary>
-          <select id="singleExpression"></select>
-        </details>
-        <details class="field">
+        <details class="field core-field" data-watch="singleAffect">
           <summary>Affekt</summary>
           <select id="singleAffect"></select>
         </details>
-        <details id="singleExtended">
+        <details class="field optional-field" data-watch="singleExpression">
+          <summary>Ausdruck / Verhalten</summary>
+          <select id="singleExpression"></select>
+        </details>
+        <details id="singleExtended" class="optional-field" data-watch="singleRegulation,singleResources">
           <summary>Einzelkriterien erweitern</summary>
-          <details class="field">
+          <details class="field" data-watch="singleRegulation">
             <summary>Selbstregulation</summary>
             <select id="singleRegulation"></select>
           </details>
-          <details class="field">
+          <details class="field" data-watch="singleResources">
             <summary>Ressourcen</summary>
             <select id="singleResources"></select>
           </details>
         </details>
       </div>
 
-      <div class="field">
-        <label class="block-label">Abschlussformulierung</label>
-        <select id="closing"></select>
-      </div>
-
-      <div class="field">
+      <div class="field optional-field">
         <label class="block-label">Optionaler Zusatz</label>
         <textarea id="freeText" autocomplete="off" placeholder="Besonderheiten, Kontext oder fachliche Ergänzung. Keine Begrenzung."></textarea>
       </div>
@@ -191,17 +197,25 @@
       <h2>Fertiger Text</h2>
       <div class="footer-actions" style="margin: 0 0 10px;">
         <button type="button" class="btn-main" id="copyBtnTop">Text kopieren</button>
+        <span class="copy-status" id="copyStatusTop"></span>
       </div>
       <textarea id="output" class="output generated-output"></textarea>
       <div class="footer-actions">
         <button type="button" class="btn-main" id="copyBtn">Text kopieren</button>
+        <button type="button" class="btn-secondary" id="condenseBtn">Klinisch knapper</button>
         <button type="button" class="btn-secondary" id="refreshBtn">Neu generieren</button>
         <button type="button" class="btn-danger" id="resetBtn">Zurücksetzen</button>
       </div>
-      <p class="small" id="copyStatus"></p>
+      <p class="copy-status" id="copyStatus"></p>
     </aside>
   </main>
 
-  <script src="app.js?v=9"></script>
+  <div class="mobile-actions" aria-label="Schnellaktionen">
+    <button type="button" class="btn-main" id="mobileCopyBtn">Kopieren</button>
+    <button type="button" class="btn-secondary" id="mobileRefreshBtn">Neu</button>
+    <button type="button" class="btn-danger" id="mobileResetBtn">Reset</button>
+  </div>
+
+  <script src="app.js?v=11"></script>
 </body>
 </html>

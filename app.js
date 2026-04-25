@@ -2,7 +2,7 @@ let introOptions = [];
 let methodGroups = [];
 let selects = {};
 let singlePhrases = {};
-const ASSET_VERSION = "9";
+const ASSET_VERSION = "11";
 
 async function loadBausteine() {
   const response = await fetch(`bausteine.json?v=${ASSET_VERSION}`, { cache: 'no-store' });
@@ -50,7 +50,8 @@ const state = {
   singleRegulation: "",
   singleResources: "",
   closing: "",
-  freeText: ""
+  freeText: "",
+  quickMode: false
 };
 
 
@@ -156,6 +157,18 @@ function renderSelect(id, options, value) {
   };
 }
 
+function updateSectionStatus() {
+  document.querySelectorAll("[data-watch]").forEach(section => {
+    const keys = section.dataset.watch.split(",");
+    const hasValue = keys.some(key => {
+      if (key === "intro") return state.intro.size > 0;
+      if (key === "methods") return state.methods.size > 0;
+      return Boolean(state[key]);
+    });
+    section.classList.toggle("has-value", hasValue);
+  });
+}
+
 function renderModeVisibility() {
   document.getElementById("patientField").style.display = state.mode === "einzel" ? "block" : "none";
   document.getElementById("groupPersonField").style.display = state.mode === "einzelgruppe" ? "block" : "none";
@@ -175,6 +188,12 @@ function renderModeVisibility() {
 
   renderIntroOptions();
   renderMethods();
+  renderQuickMode();
+}
+
+function renderQuickMode() {
+  document.body.classList.toggle("quick-mode", state.quickMode);
+  document.getElementById("quickModeBtn").classList.toggle("active", state.quickMode);
 }
 
 function renderButtons(groupName, value) {
@@ -459,8 +478,19 @@ function generate() {
   if (state.mode === "einzelgruppe") text = generateEinzelGruppe();
 
   const output = document.getElementById("output");
-  output.value = text || "Bitte mindestens einen Inhaltsbaustein oder ein Kriterium auswählen.";
+  output.value = text || emptyMessageForMode();
   autoResizeOutput();
+  updateSectionStatus();
+}
+
+function emptyMessageForMode() {
+  if (state.mode === "einzelgruppe") {
+    return "Für die Einzelbeobachtung bitte Kontakt, Ausdruck, Affekt, Selbstregulation, Ressourcen, Abschluss oder Freitext auswählen.";
+  }
+  if (state.mode === "einzel") {
+    return "Für die Einzeldokumentation bitte Einstieg, Inhalt/Aktion, Kontakt, Affekt, Einzelkriterium, Abschluss oder Freitext auswählen.";
+  }
+  return "Für die Gruppendokumentation bitte Einstieg, Inhalt/Aktion, Wirkung, Verlaufskriterium, Abschluss oder Freitext auswählen.";
 }
 
 function autoResizeOutput() {
@@ -472,10 +502,76 @@ function autoResizeOutput() {
 function copyGeneratedText() {
   const text = document.getElementById("output").value;
   navigator.clipboard.writeText(text).then(() => {
-    document.getElementById("copyStatus").textContent = "Text wurde kopiert.";
+    showStatus("Text wurde kopiert.", "success");
   }).catch(() => {
-    document.getElementById("copyStatus").textContent = "Kopieren nicht möglich. Text bitte manuell markieren.";
+    showStatus("Kopieren nicht möglich. Text bitte manuell markieren.", "error");
   });
+}
+
+function showStatus(message, type = "info") {
+  document.querySelectorAll(".copy-status").forEach(el => {
+    el.textContent = message;
+    el.className = "copy-status status-" + type;
+  });
+}
+
+function visibleDetails() {
+  return Array.from(document.querySelectorAll("details")).filter(detail => detail.offsetParent !== null);
+}
+
+function openCoreDetails() {
+  visibleDetails().forEach(detail => detail.open = false);
+  document.querySelectorAll("details.core-field").forEach(detail => {
+    if (detail.offsetParent !== null) detail.open = true;
+  });
+}
+
+function setDetailsOpen(open) {
+  visibleDetails().forEach(detail => detail.open = open);
+}
+
+function toggleQuickMode() {
+  state.quickMode = !state.quickMode;
+  state.version = "kurz";
+  renderButtons("version", state.version);
+  renderQuickMode();
+  if (state.quickMode) {
+    openCoreDetails();
+    showStatus("Schnelldoku: Kernfelder sind geöffnet.", "info");
+  } else {
+    showStatus("Alle Felder sind wieder sichtbar.", "info");
+  }
+  generate();
+}
+
+function condenseOutputText() {
+  const output = document.getElementById("output");
+  const placeholder = emptyMessageForMode();
+  if (!output.value.trim() || output.value === placeholder) {
+    showStatus("Zum Kürzen bitte zuerst einen Dokumentationstext erzeugen.", "info");
+    return;
+  }
+
+  const condensed = output.value
+    .split("\n")
+    .map(line => line.trim())
+    .filter(Boolean)
+    .filter(line => !line.startsWith("Durch den Wechsel der methodischen Formen"))
+    .filter(line => !line.startsWith("Der methodische Fokus lag auf"))
+    .map(line => line
+      .replace("Zu Beginn erfolgte eine kurze Begrüßung. ", "")
+      .replace("Zu Beginn erfolgten Begrüßung und kurze Orientierung. ", "")
+      .replace("Als zentraler musiktherapeutischer Baustein wurde ", "Methodisch wurde ")
+      .replace("Eingesetzt wurden ", "Methodisch: ")
+      .replace("Methodisch kamen ", "Methodisch: ")
+      .replace(" zum Einsatz.", ".")
+      .replace("Die Stunde wirkte insgesamt ", "Wirkung: ")
+      .replace("Eine Fortführung im Rahmen des Behandlungsplans ist vorgesehen.", "Fortführung im Behandlungsplan vorgesehen."))
+    .join("\n");
+
+  output.value = condensed;
+  autoResizeOutput();
+  showStatus("Text wurde klinisch knapper formuliert.", "success");
 }
 
 function resetAll() {
@@ -505,16 +601,18 @@ function resetAll() {
   state.singleResources = "";
   state.closing = "";
   state.freeText = "";
+  state.quickMode = false;
 
   ["docDate","docTime","groupName","station","singlePersonInitials","groupPersonInitials","freeText"].forEach(id => document.getElementById(id).value = "");
   document.getElementById("singlePersonInitials").value = "";
   document.getElementById("groupPersonInitials").value = "";
-  document.getElementById("copyStatus").textContent = "";
+  showStatus("", "info");
   initSelects();
   renderIntroOptions();
   renderButtons("mode", state.mode);
   renderButtons("version", state.version);
   renderModeVisibility();
+  renderQuickMode();
   generate();
 }
 
@@ -576,6 +674,13 @@ document.getElementById("refreshBtn").addEventListener("click", generate);
 document.getElementById("resetBtn").addEventListener("click", resetAll);
 document.getElementById("copyBtn").addEventListener("click", copyGeneratedText);
 document.getElementById("copyBtnTop").addEventListener("click", copyGeneratedText);
+document.getElementById("mobileCopyBtn").addEventListener("click", copyGeneratedText);
+document.getElementById("mobileRefreshBtn").addEventListener("click", generate);
+document.getElementById("mobileResetBtn").addEventListener("click", resetAll);
+document.getElementById("quickModeBtn").addEventListener("click", toggleQuickMode);
+document.getElementById("expandAllBtn").addEventListener("click", () => setDetailsOpen(true));
+document.getElementById("collapseAllBtn").addEventListener("click", () => setDetailsOpen(false));
+document.getElementById("condenseBtn").addEventListener("click", condenseOutputText);
 
 loadBausteine()
   .then(() => {
@@ -584,6 +689,7 @@ loadBausteine()
     renderModeVisibility();
     renderButtons("mode", state.mode);
     renderButtons("version", state.version);
+    renderQuickMode();
     generate();
   })
   .catch(showLoadError);
