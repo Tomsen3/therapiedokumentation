@@ -1,4 +1,4 @@
-const CACHE_NAME = "therapiedoku-v1";
+const CACHE_NAME = "therapiedoku-v2";
 const APP_FILES = [
   "./",
   "./index.html",

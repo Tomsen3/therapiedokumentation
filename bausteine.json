@@ -2,28 +2,56 @@
   "introOptions": [
     {
       "id": "kurze_begruessung",
-      "label": "kurze Begrüßung",
-      "text": "Zu Beginn erfolgte eine kurze Begrüßung."
+      "label": "kurze Begr??ung",
+      "text": "Zu Beginn erfolgte eine kurze Begr??ung."
+    },
+    {
+      "id": "begrussung_orientierung",
+      "label": "Begr??ung und Orientierung",
+      "text": "Zu Beginn erfolgten Begr??ung und kurze Orientierung."
+    },
+    {
+      "id": "befinden_abfragen",
+      "label": "Befinden kurz erfasst",
+      "text": "Das aktuelle Befinden wurde zu Beginn kurz erfasst."
+    },
+    {
+      "id": "direkter_einstieg",
+      "label": "direkter Einstieg",
+      "text": "Nach kurzer Begr??ung erfolgte ein direkter Einstieg in das musiktherapeutische Angebot."
+    },
+    {
+      "id": "ruhiger_einstieg",
+      "label": "ruhiger Einstieg",
+      "text": "Der Einstieg erfolgte ruhig und strukturierend."
+    },
+    {
+      "id": "stabilisierender_einstieg",
+      "label": "stabilisierender Einstieg",
+      "text": "Zu Beginn wurde ein stabilisierender Rahmen hergestellt."
     },
     {
       "id": "rueckmelderunde",
-      "label": "kurze Rückmelderunde",
-      "text": "Es erfolgte eine kurze Rückmelderunde zum aktuellen Befinden."
+      "label": "kurze R?ckmelderunde",
+      "text": "Es erfolgte eine kurze R?ckmelderunde zum aktuellen Befinden.",
+      "groupOnly": true
     },
     {
       "id": "neue_teilnehmer",
       "label": "neue Teilnehmende vorgestellt",
-      "text": "Neue Teilnehmende wurden vorgestellt und in die Gruppe einbezogen."
+      "text": "Neue Teilnehmende wurden vorgestellt und in die Gruppe einbezogen.",
+      "groupOnly": true
     },
     {
       "id": "ausfuehrlicher_einstieg",
-      "label": "ausführlicherer Einstieg",
+      "label": "ausf?hrlicherer Einstieg",
       "text": "Vorstellung und Orientierung nahmen zu Beginn mehr Raum ein."
     },
     {
       "id": "moderiert_begrenzt",
-      "label": "Gespräch moderiert / begrenzt",
-      "text": "Die Einstiegsrunde wurde strukturiert und zeitlich begrenzt."
+      "label": "Gespr?ch moderiert / begrenzt",
+      "text": "Die Einstiegsrunde wurde strukturiert und zeitlich begrenzt.",
+      "groupOnly": true
     }
   ],
   "methodGroups": [

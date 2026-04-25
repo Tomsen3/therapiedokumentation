@@ -26,7 +26,8 @@ const state = {
   version: "kurz",
   intro: new Set(["kurze_begruessung"]),
   methods: new Set(),
-  patientTerm: "patient",
+  singlePersonSalutation: "herr",
+  singlePersonInitials: "M",
   groupPersonSalutation: "herr",
   groupPersonInitials: "M",
   docDate: "",
@@ -73,7 +74,7 @@ function joinItems(items) {
 function renderIntroOptions() {
   const el = document.getElementById("introOptions");
   el.innerHTML = "";
-  introOptions.forEach(opt => {
+  introOptions.filter(isAvailableForMode).forEach(opt => {
     const btn = document.createElement("button");
     btn.type = "button";
     btn.textContent = opt.label;
@@ -157,12 +158,14 @@ function renderModeVisibility() {
   document.getElementById("groupPersonField").style.display = state.mode === "einzelgruppe" ? "block" : "none";
   document.getElementById("groupCriteria").style.display = state.mode === "gruppe" ? "block" : "none";
   document.getElementById("singleCriteria").style.display = state.mode !== "gruppe" ? "block" : "none";
-  document.getElementById("introField").style.display = state.mode === "einzel" ? "none" : "block";
+  document.getElementById("introField").style.display = "block";
 
   if (state.mode === "einzel") {
     allMethods().filter(item => item.groupOnly).forEach(item => state.methods.delete(item.id));
+    introOptions.filter(item => item.groupOnly).forEach(item => state.intro.delete(item.id));
   }
 
+  renderIntroOptions();
   renderMethods();
 }
 
@@ -182,9 +185,14 @@ function generateHeader() {
 }
 
 function generateIntro() {
-  if (state.mode === "einzel") return "";
-  const ordered = introOptions.filter(opt => state.intro.has(opt.id));
+  const ordered = introOptions.filter(opt => state.intro.has(opt.id) && isAvailableForMode(opt));
   return ordered.map(opt => opt.text).join(" ");
+}
+
+function isAvailableForMode(item) {
+  if (state.mode === "einzel" && item.groupOnly) return false;
+  if (state.mode !== "einzel" && item.singleOnly) return false;
+  return true;
 }
 
 function generateMethods() {
@@ -219,18 +227,33 @@ function generateMethods() {
 }
 
 function subjectForSingle() {
-  if (state.patientTerm === "patientin") {
+  const initial = singlePersonInitial();
+  if (state.singlePersonSalutation === "herr") {
+    return { subject: "Herr " + initial + ".", pronoun: "er", dative: "Herrn " + initial + "." };
+  }
+  if (state.singlePersonSalutation === "frau") {
+    return { subject: "Frau " + initial + ".", pronoun: "sie", dative: "Frau " + initial + "." };
+  }
+  if (state.singlePersonSalutation === "patientin") {
     return { subject: "Die Patientin", pronoun: "sie", dative: "der Patientin" };
   }
-  if (state.patientTerm === "neutral") {
+  if (state.singlePersonSalutation === "neutral") {
     return { subject: "Die behandelte Person", pronoun: "sie", dative: "der behandelten Person" };
   }
   return { subject: "Der Patient", pronoun: "er", dative: "dem Patienten" };
 }
 
-function groupPersonInitial() {
-  const clean = (state.groupPersonInitials || "M").replace(/[^A-Za-zÄÖÜäöüß]/g, "").slice(0, 3);
+function cleanInitials(value) {
+  const clean = (value || "M").replace(/[^A-Za-zÄÖÜäöüß]/g, "").slice(0, 3);
   return clean ? clean.charAt(0).toUpperCase() + clean.slice(1) : "M";
+}
+
+function singlePersonInitial() {
+  return cleanInitials(state.singlePersonInitials);
+}
+
+function groupPersonInitial() {
+  return cleanInitials(state.groupPersonInitials);
 }
 
 function groupPersonLabel() {
@@ -251,11 +274,11 @@ function fillSingleTemplate(template, context) {
     .replace("{pronoun}", context.pronoun);
 }
 
-function generateSingleObservation(prefix, subjectOverride) {
+function generateSingleObservation(prefix, subjectOverride, pronounOverride) {
   const isGroupObservation = prefix.startsWith("Bei ");
   const context = {
     subject: subjectOverride || prefix,
-    pronoun: pronounForPrefix(prefix)
+    pronoun: pronounOverride || pronounForPrefix(prefix)
   };
   const lines = [];
 
@@ -358,8 +381,9 @@ function generateEinzel() {
   const single = subjectForSingle();
   return [
     generateHeader(),
+    generateIntro(),
     generateMethods(),
-    generateSingleObservation(single.subject),
+    generateSingleObservation(single.subject, single.subject, single.pronoun),
     generateClosing(),
     state.freeText.trim()
   ].filter(Boolean).join("\n");
@@ -368,6 +392,7 @@ function generateEinzel() {
 function generateEinzelGruppe() {
   return [
     generateHeader(),
+    generateIntro(),
     generateMethods(),
     generateSingleObservation("Bei " + groupPersonLabel(), groupPersonSubject()),
     generateClosing(),
@@ -407,7 +432,8 @@ function resetAll() {
   state.version = "kurz";
   state.intro = new Set(["kurze_begruessung"]);
   state.methods = new Set();
-  state.patientTerm = "patient";
+  state.singlePersonSalutation = "herr";
+  state.singlePersonInitials = "M";
   state.groupPersonSalutation = "herr";
   state.groupPersonInitials = "M";
   state.docDate = "";
@@ -429,7 +455,8 @@ function resetAll() {
   state.closing = "";
   state.freeText = "";
 
-  ["docDate","docTime","groupName","station","groupPersonInitials","freeText"].forEach(id => document.getElementById(id).value = "");
+  ["docDate","docTime","groupName","station","singlePersonInitials","groupPersonInitials","freeText"].forEach(id => document.getElementById(id).value = "");
+  document.getElementById("singlePersonInitials").value = "M";
   document.getElementById("groupPersonInitials").value = "M";
   initSelects();
   renderIntroOptions();
@@ -443,7 +470,8 @@ function initSelects() {
   const ids = ["dynamic","participation","access","effect","groupClimate","groupDynamics","groupIntegration","singleContact","singleExpression","singleAffect","singleRegulation","singleResources","closing"];
   ids.forEach(id => renderSelect(id, selects[id], state[id]));
 
-  document.getElementById("patientTerm").value = state.patientTerm;
+  document.getElementById("singlePersonSalutation").value = state.singlePersonSalutation;
+  document.getElementById("singlePersonInitials").value = state.singlePersonInitials;
   document.getElementById("groupPersonSalutation").value = state.groupPersonSalutation;
   document.getElementById("groupPersonInitials").value = state.groupPersonInitials;
 }
@@ -465,8 +493,13 @@ document.querySelectorAll('[data-group="version"] button').forEach(btn => {
   });
 });
 
-document.getElementById("patientTerm").addEventListener("change", e => {
-  state.patientTerm = e.target.value;
+document.getElementById("singlePersonSalutation").addEventListener("change", e => {
+  state.singlePersonSalutation = e.target.value;
+  generate();
+});
+
+document.getElementById("singlePersonInitials").addEventListener("input", e => {
+  state.singlePersonInitials = e.target.value;
   generate();
 });
 
