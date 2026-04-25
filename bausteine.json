@@ -1,0 +1,741 @@
+{
+  "introOptions": [
+    {
+      "id": "kurze_begruessung",
+      "label": "kurze Begrüßung",
+      "text": "Zu Beginn erfolgte eine kurze Begrüßung."
+    },
+    {
+      "id": "rueckmelderunde",
+      "label": "kurze Rückmelderunde",
+      "text": "Es erfolgte eine kurze Rückmelderunde zum aktuellen Befinden."
+    },
+    {
+      "id": "neue_teilnehmer",
+      "label": "neue Teilnehmende vorgestellt",
+      "text": "Neue Teilnehmende wurden vorgestellt und in die Gruppe einbezogen."
+    },
+    {
+      "id": "ausfuehrlicher_einstieg",
+      "label": "ausführlicherer Einstieg",
+      "text": "Vorstellung und Orientierung nahmen zu Beginn mehr Raum ein."
+    },
+    {
+      "id": "moderiert_begrenzt",
+      "label": "Gespräch moderiert / begrenzt",
+      "text": "Die Einstiegsrunde wurde strukturiert und zeitlich begrenzt."
+    }
+  ],
+  "methodGroups": [
+    {
+      "title": "Aktivierung & Körper",
+      "items": [
+        {
+          "id": "bewegung_musik",
+          "label": "Bewegung zur Musik",
+          "text": "bewegungsorientierte Elemente zur Musik",
+          "focus": "Körperwahrnehmung, Regulation und Aktivierung"
+        },
+        {
+          "id": "atemtechnik",
+          "label": "Atemtechnik",
+          "text": "atembezogene Übungen",
+          "focus": "Atemregulation und Körperwahrnehmung"
+        },
+        {
+          "id": "koerperwahrnehmung",
+          "label": "Körperwahrnehmung",
+          "text": "Elemente der Körperwahrnehmung",
+          "focus": "Körperwahrnehmung und Selbstbezug"
+        },
+        {
+          "id": "stimmaktivierung",
+          "label": "Einsingen / Stimmaktivierung",
+          "text": "Stimmaktivierung",
+          "focus": "Aktivierung, Selbstwahrnehmung und Ausdrucksförderung",
+          "langText": "Stimmliche Angebote dienten der Aktivierung, Selbstwahrnehmung und Ausdrucksförderung."
+        }
+      ]
+    },
+    {
+      "title": "Rhythmus & Koordination",
+      "items": [
+        {
+          "id": "bodypercussion",
+          "label": "Bodypercussion",
+          "text": "Bodypercussion",
+          "focus": "Rhythmus, Koordination und Aktivierung"
+        },
+        {
+          "id": "rhythmus_instrumente",
+          "label": "Rhythmusarbeit mit Instrumenten",
+          "text": "Rhythmusarbeit mit Instrumenten",
+          "focus": "Strukturierung, Aktivierung und Gruppensynchronisation",
+          "langText": "Rhythmische Elemente unterstützten Strukturierung, Aktivierung und Gruppensynchronisation."
+        },
+        {
+          "id": "koordination_sync",
+          "label": "Koordination / Synchronisation",
+          "text": "koordinative und synchronisierende Gruppenübungen",
+          "focus": "Koordination, gemeinsamer Puls und Gruppensynchronisation",
+          "groupOnly": true
+        },
+        {
+          "id": "taketina",
+          "label": "TaKeTiNa-orientierte Rhythmusarbeit",
+          "text": "TaKeTiNa-orientierte Rhythmusarbeit",
+          "focus": "rhythmische Orientierung, Aufmerksamkeit und Selbstregulation",
+          "groupOnly": true
+        }
+      ]
+    },
+    {
+      "title": "Arbeit mit Liedern",
+      "items": [
+        {
+          "id": "bekanntes_lied",
+          "label": "bekanntes Lied gemeinsam singen",
+          "text": "gemeinsames Singen eines bekannten Liedes",
+          "focus": "Stimme, Vertrautheit und musikalische Resonanz"
+        },
+        {
+          "id": "lied_einfuehren",
+          "label": "Lied neu vorstellen / einführen",
+          "text": "die Einführung eines neuen Liedes",
+          "focus": "Orientierung, Stimme und musikalischer Zugang"
+        },
+        {
+          "id": "lied_impuls",
+          "label": "Lied als Impuls",
+          "text": "Lied als Impuls",
+          "focus": "Zugang zu eigenem Erleben, Selbstbezug und musikalische Resonanz",
+          "langText": "Das Lied wurde als musiktherapeutischer Impuls genutzt, um Zugang zu eigenem Erleben zu eröffnen."
+        },
+        {
+          "id": "lied_elemente",
+          "label": "mit Lied-Elementen arbeiten",
+          "text": "Arbeit mit einzelnen Elementen eines Liedes",
+          "focus": "Text, Melodie, Rhythmus und thematische Vertiefung"
+        }
+      ]
+    },
+    {
+      "title": "Improvisation & freies Arbeiten",
+      "items": [
+        {
+          "id": "freie_impro",
+          "label": "freie Improvisation",
+          "text": "freie Improvisation",
+          "focus": "Ausdruck, Spontaneität und eigenes Gestalten"
+        },
+        {
+          "id": "thematische_impro",
+          "label": "thematische Improvisation",
+          "text": "thematische Improvisation",
+          "focus": "nonverbaler Ausdruck, Selbstbezug und inneres Erleben",
+          "langText": "Die thematische Improvisation ermöglichte nonverbalen Ausdruck und Selbstbezug."
+        },
+        {
+          "id": "ausdruck",
+          "label": "Ausdruck über Stimme / Musik",
+          "text": "Ausdrucksarbeit über Stimme und Musik",
+          "focus": "Ausdrucksfähigkeit und emotionaler Zugang"
+        }
+      ]
+    },
+    {
+      "title": "Musik hören & Reflexion",
+      "items": [
+        {
+          "id": "musik_hoeren",
+          "label": "gemeinsames Musik hören",
+          "text": "gemeinsames Musik hören",
+          "focus": "Wahrnehmungslenkung, Resonanzbildung und Reflexion",
+          "langText": "Das gemeinsame Hören von Musik wurde zur Wahrnehmungslenkung, Resonanzbildung und Reflexion genutzt."
+        },
+        {
+          "id": "biografische_musik",
+          "label": "biografische Musikarbeit",
+          "text": "biografisch orientierte Musikarbeit",
+          "focus": "biografischer Bezug, Selbstbezug und Austausch"
+        },
+        {
+          "id": "austausch_feedback",
+          "label": "Austausch / Rückmeldung",
+          "text": "Austausch und Rückmeldungen innerhalb der Gruppe",
+          "focus": "Kontaktgestaltung, Reflexion und soziale Resonanz",
+          "groupOnly": true
+        }
+      ]
+    },
+    {
+      "title": "Interaktion & erfahrungsorientierte Methoden",
+      "items": [
+        {
+          "id": "partnerarbeit",
+          "label": "Partnerarbeit (z. B. Live-Kinetik)",
+          "text": "Partnerarbeit mit koordinativen Elementen",
+          "focus": "Kontakt, Koordination und Abstimmung"
+        },
+        {
+          "id": "gfk",
+          "label": "GFK-Übungen",
+          "text": "kommunikations- und wahrnehmungsbezogene Übungen aus der GFK",
+          "focus": "Wahrnehmung, Kommunikation und Selbstklärung"
+        },
+        {
+          "id": "begrussungsritual",
+          "label": "Begrüßungsrituale",
+          "text": "Begrüßungsrituale",
+          "focus": "Kontaktaufnahme und Gruppenorientierung",
+          "groupOnly": true
+        },
+        {
+          "id": "erfahrungsuebung",
+          "label": "angeleitete Erfahrungsübungen",
+          "text": "angeleitete erfahrungsorientierte Übungen",
+          "focus": "Selbstwahrnehmung, Erfahrung und Reflexion"
+        },
+        {
+          "id": "raumwahrnehmung",
+          "label": "Raumwahrnehmung über Bewegung",
+          "text": "Raumwahrnehmung über Gehen, Erkunden und Beschreiben",
+          "focus": "Raumwahrnehmung, Orientierung und Selbstbezug"
+        },
+        {
+          "id": "geschichten",
+          "label": "Geschichten / szenisches Arbeiten",
+          "text": "szenische Methoden mit Entwicklung eigener Geschichten",
+          "focus": "Kreativität, Ausdruck und Perspektivwechsel"
+        }
+      ]
+    },
+    {
+      "title": "Regulation & Abschluss",
+      "items": [
+        {
+          "id": "entspannung",
+          "label": "Entspannung",
+          "text": "entspannende Elemente",
+          "focus": "Regulation, Entlastung und Beruhigung"
+        },
+        {
+          "id": "ruhiger_ausklang",
+          "label": "ruhiger Ausklang / Summen",
+          "text": "ein ruhiger Ausklang mit Summen oder Tönen",
+          "focus": "Beruhigung, Stimme und Selbstregulation"
+        },
+        {
+          "id": "abschlusslied",
+          "label": "Abschlusslied",
+          "text": "ein Abschlusslied",
+          "focus": "Rahmung, Orientierung und Abschluss"
+        },
+        {
+          "id": "kurze_reflexion",
+          "label": "kurze Reflexion",
+          "text": "eine kurze Abschlussreflexion",
+          "focus": "Reflexion und Integration"
+        }
+      ]
+    }
+  ],
+  "selects": {
+    "dynamic": [
+      [
+        "",
+        "nicht übernehmen",
+        ""
+      ],
+      [
+        "konstant_stabil",
+        "konstant stabil",
+        "Der Gruppenverlauf blieb konstant stabil."
+      ],
+      [
+        "zunehmend_geoeffnet",
+        "zunehmend geöffnet",
+        "Die Offenheit innerhalb der Gruppe nahm zu."
+      ],
+      [
+        "zunehmend_unruhig",
+        "zunehmend unruhig",
+        "Die Unruhe innerhalb der Gruppe nahm zu."
+      ],
+      [
+        "schwankend",
+        "schwankend",
+        "Der Gruppenverlauf blieb wechselhaft."
+      ],
+      [
+        "schwer_kontakt",
+        "schwer in Kontakt kommend",
+        "Kontakt innerhalb der Gruppe kam nur erschwert zustande."
+      ]
+    ],
+    "participation": [
+      [
+        "",
+        "nicht übernehmen",
+        ""
+      ],
+      [
+        "aktiv",
+        "aktiv beteiligt",
+        "Die Beteiligung war aktiv."
+      ],
+      [
+        "wechselhaft",
+        "wechselhaft beteiligt",
+        "Die Beteiligung war wechselhaft."
+      ],
+      [
+        "zurueckhaltend",
+        "eher zurückhaltend",
+        "Die Beteiligung blieb eher zurückhaltend."
+      ],
+      [
+        "passiv",
+        "passiv / beobachtend",
+        "Die Teilnahme war überwiegend passiv und beobachtend."
+      ]
+    ],
+    "access": [
+      [
+        "",
+        "nicht übernehmen",
+        ""
+      ],
+      [
+        "gut_erreichbar",
+        "gut erreichbar",
+        "Ein emotionaler Zugang war gut möglich."
+      ],
+      [
+        "vorsichtig",
+        "vorsichtig / zurückhaltend",
+        "Der emotionale Zugang war vorsichtig und zurückhaltend."
+      ],
+      [
+        "punktuell_geoeffnet",
+        "punktuell geöffnet",
+        "Ein emotionaler Zugang entstand punktuell."
+      ],
+      [
+        "erschwert",
+        "erschwert zugänglich",
+        "Der Zugang zum inneren Erleben war erschwert."
+      ],
+      [
+        "belastet",
+        "emotional belastet",
+        "Es wurden emotional belastete Anteile sichtbar."
+      ]
+    ],
+    "effect": [
+      [
+        "",
+        "nicht übernehmen",
+        ""
+      ],
+      [
+        "stabilisierend",
+        "stabilisierend",
+        "Die Stunde wirkte insgesamt stabilisierend."
+      ],
+      [
+        "aktivierend",
+        "aktivierend",
+        "Die Stunde wirkte insgesamt aktivierend."
+      ],
+      [
+        "emotional_oeffnend",
+        "emotional öffnend",
+        "Die Stunde wirkte insgesamt emotional öffnend."
+      ],
+      [
+        "strukturierend",
+        "strukturierend",
+        "Die Stunde wirkte insgesamt strukturierend."
+      ],
+      [
+        "entlastend",
+        "entlastend",
+        "Die Stunde wirkte insgesamt entlastend."
+      ],
+      [
+        "anregend",
+        "anregend",
+        "Die Stunde wirkte insgesamt anregend."
+      ]
+    ],
+    "groupClimate": [
+      [
+        "",
+        "nicht übernehmen",
+        ""
+      ],
+      [
+        "tragfaehig",
+        "tragfähig",
+        "Das Gruppenklima wirkte tragfähig."
+      ],
+      [
+        "vorsichtig",
+        "vorsichtig",
+        "Das Gruppenklima blieb zunächst vorsichtig."
+      ],
+      [
+        "distanziert",
+        "distanziert",
+        "Das Gruppenklima wirkte phasenweise distanziert."
+      ],
+      [
+        "angespannt",
+        "angespannt",
+        "Das Gruppenklima war von Anspannung geprägt."
+      ],
+      [
+        "unterstuetzend",
+        "unterstützend",
+        "Das Gruppenklima hatte unterstützende Anteile."
+      ]
+    ],
+    "groupDynamics": [
+      [
+        "",
+        "nicht übernehmen",
+        ""
+      ],
+      [
+        "kooperativ",
+        "kooperativ",
+        "Die Gruppendynamik war kooperativ."
+      ],
+      [
+        "wechselhaft",
+        "wechselhaft",
+        "Die Gruppendynamik verlief wechselhaft."
+      ],
+      [
+        "unruhig",
+        "unruhig",
+        "Die Gruppendynamik war phasenweise unruhig."
+      ],
+      [
+        "zurueckhaltend",
+        "zurückhaltend",
+        "Die Gruppendynamik blieb zurückhaltend."
+      ],
+      [
+        "strukturbeduerftig",
+        "strukturbedürftig",
+        "Die Gruppe benötigte wiederholt strukturierende Impulse."
+      ]
+    ],
+    "groupIntegration": [
+      [
+        "",
+        "nicht übernehmen",
+        ""
+      ],
+      [
+        "gut",
+        "gut integriert",
+        "Einzelne Teilnehmende waren gut in das Gruppengeschehen eingebunden."
+      ],
+      [
+        "teilweise",
+        "teilweise integriert",
+        "Einzelne Teilnehmende konnten teilweise eingebunden werden."
+      ],
+      [
+        "randstaendig",
+        "einzelne randständig",
+        "Einzelne Teilnehmende blieben eher randständig."
+      ],
+      [
+        "unterschiedlich",
+        "unterschiedliche Beteiligung",
+        "Einbindung und Beteiligung waren innerhalb der Gruppe unterschiedlich ausgeprägt."
+      ]
+    ],
+    "singleContact": [
+      [
+        "",
+        "nicht übernehmen",
+        ""
+      ],
+      [
+        "gut",
+        "gut kontaktfähig",
+        "gut erreichbarer Kontakt"
+      ],
+      [
+        "vorsichtig",
+        "vorsichtig / zurückhaltend",
+        "vorsichtiger und zurückhaltender Kontakt"
+      ],
+      [
+        "wechselhaft",
+        "wechselhaft",
+        "wechselhafter Kontakt"
+      ],
+      [
+        "vermeidend",
+        "vermeidend",
+        "vermeidender Kontakt"
+      ],
+      [
+        "schwer",
+        "schwer erreichbar",
+        "erschwert erreichbarer Kontakt"
+      ]
+    ],
+    "singleExpression": [
+      [
+        "",
+        "nicht übernehmen",
+        ""
+      ],
+      [
+        "aktiv",
+        "aktiv eingebracht",
+        "bei aktivem Ausdruck"
+      ],
+      [
+        "zoegerlich",
+        "zögerlich eingebracht",
+        "bei zögerlichem Ausdruck"
+      ],
+      [
+        "beobachtend",
+        "überwiegend beobachtend",
+        "bei überwiegend beobachtendem Verhalten"
+      ],
+      [
+        "impulsiv",
+        "impulsiv / unstrukturiert",
+        "bei impulsivem und wenig strukturiertem Ausdruck"
+      ],
+      [
+        "orientiert",
+        "angepasst / orientiert",
+        "bei angepasstem und orientiertem Verhalten"
+      ]
+    ],
+    "singleAffect": [
+      [
+        "",
+        "nicht übernehmen",
+        ""
+      ],
+      [
+        "stabil",
+        "stabil",
+        "stabil"
+      ],
+      [
+        "angespannt",
+        "angespannt",
+        "angespannt"
+      ],
+      [
+        "niedergedrueckt",
+        "niedergedrückt",
+        "niedergedrückt"
+      ],
+      [
+        "labil",
+        "labil",
+        "emotional labil"
+      ],
+      [
+        "beteiligt",
+        "emotional beteiligt",
+        "emotional beteiligt"
+      ]
+    ],
+    "singleRegulation": [
+      [
+        "",
+        "nicht übernehmen",
+        ""
+      ],
+      [
+        "stabil",
+        "stabil",
+        "Die Selbstregulation war stabil."
+      ],
+      [
+        "unterstuetzung",
+        "unterstützungsbedürftig",
+        "Die Selbstregulation war unterstützungsbedürftig."
+      ],
+      [
+        "ueberfordert",
+        "überfordert",
+        "Die Selbstregulation war bei erhöhter Anforderung überfordert."
+      ],
+      [
+        "zunehmend",
+        "zunehmend reguliert",
+        "Die Selbstregulation gelang zunehmend besser."
+      ],
+      [
+        "struktur",
+        "reagierte auf Struktur",
+        "Auf strukturierende Impulse konnte reagiert werden."
+      ]
+    ],
+    "singleResources": [
+      [
+        "",
+        "nicht übernehmen",
+        ""
+      ],
+      [
+        "gut",
+        "gut zugänglich",
+        "Ressourcen waren gut zugänglich."
+      ],
+      [
+        "punktuell",
+        "punktuell zugänglich",
+        "Ressourcen waren punktuell zugänglich."
+      ],
+      [
+        "erschwert",
+        "schwer zugänglich",
+        "Der Zugang zu Ressourcen war erschwert."
+      ],
+      [
+        "musik",
+        "durch Musik aktiviert",
+        "Musikalische Angebote erleichterten den Zugang zu Ressourcen."
+      ],
+      [
+        "kaum",
+        "kaum erreichbar",
+        "Ressourcen waren kaum erreichbar."
+      ]
+    ],
+    "closing": [
+      [
+        "",
+        "keine Abschlussformulierung",
+        ""
+      ],
+      [
+        "keine_auffaelligkeiten",
+        "keine besonderen Auffälligkeiten",
+        "Es ergaben sich keine besonderen therapeutischen Auffälligkeiten."
+      ],
+      [
+        "fortfuehrung",
+        "Fortführung im Behandlungsplan",
+        "Eine Fortführung im Rahmen des Behandlungsplans ist vorgesehen."
+      ],
+      [
+        "beobachtung",
+        "weiterer Verlauf wird beobachtet",
+        "Der weitere Verlauf wird beobachtet."
+      ],
+      [
+        "anpassung",
+        "Anpassung empfohlen",
+        "Eine Anpassung des weiteren Vorgehens wird empfohlen."
+      ]
+    ]
+  },
+  "singlePhrases": {
+    "contact": {
+      "gut": "gut erreichbar",
+      "vorsichtig": "vorsichtig",
+      "wechselhaft": "wechselhaft erreichbar",
+      "vermeidend": "eher vermeidend",
+      "schwer": "erschwert erreichbar"
+    },
+    "groupContact": {
+      "gut": "gut erreichbar",
+      "vorsichtig": "vorsichtig",
+      "wechselhaft": "wechselhaft erreichbar",
+      "vermeidend": "eher vermeidend",
+      "schwer": "erschwert erreichbar"
+    },
+    "expression": {
+      "aktiv": {
+        "single": "brachte {pronoun} sich aktiv und gestaltend ein",
+        "group": "Das Einbringen war aktiv und gestaltend beobachtbar."
+      },
+      "zoegerlich": {
+        "single": "blieb der musikalische und verbale Ausdruck zunächst zögerlich",
+        "group": "Der musikalische und verbale Ausdruck blieb zunächst zögerlich.",
+        "sentence": "Der musikalische und verbale Ausdruck blieb zunächst zögerlich."
+      },
+      "beobachtend": {
+        "single": "nahm {pronoun} überwiegend beobachtend teil",
+        "group": "Das Verhalten blieb überwiegend beobachtend."
+      },
+      "impulsiv": {
+        "single": "wirkte der Ausdruck impulsiv und wenig strukturiert",
+        "group": "Der Ausdruck wirkte impulsiv und wenig strukturiert."
+      },
+      "orientiert": {
+        "single": "wirkte das Verhalten angepasst und orientiert",
+        "group": "Das Verhalten wirkte angepasst und orientiert."
+      }
+    },
+    "affect": {
+      "stabil": "stabil",
+      "angespannt": "angespannt",
+      "niedergedrueckt": "niedergedrückt",
+      "labil": "emotional labil",
+      "beteiligt": "emotional beteiligt"
+    },
+    "regulation": {
+      "stabil": {
+        "single": "{subject} konnte die Selbstregulation stabil halten.",
+        "group": "Die Selbstregulation blieb stabil."
+      },
+      "unterstuetzung": {
+        "single": "Die Selbstregulation ließ sich durch strukturierende Impulse unterstützen.",
+        "group": "Die Selbstregulation ließ sich durch strukturierende Impulse unterstützen."
+      },
+      "ueberfordert": {
+        "single": "Bei erhöhter Anforderung war Unterstützung zur Regulation erforderlich.",
+        "group": "Bei erhöhter Anforderung war Unterstützung zur Regulation erforderlich."
+      },
+      "zunehmend": {
+        "single": "Die Selbstregulation gelang zunehmend besser.",
+        "group": "Die Selbstregulation gelang zunehmend besser."
+      },
+      "struktur": {
+        "single": "Auf strukturierende musikalische Impulse reagierte {pronoun} zunehmend.",
+        "group": "Auf strukturierende musikalische Impulse reagierte {subject} zunehmend."
+      }
+    },
+    "resources": {
+      "gut": {
+        "single": "Ressourcen waren gut zugänglich.",
+        "group": "Ressourcen waren gut zugänglich."
+      },
+      "punktuell": {
+        "single": "Ressourcen waren punktuell zugänglich und konnten über musikalische Angebote aktiviert werden.",
+        "group": "Ressourcen waren punktuell zugänglich und konnten über musikalische Angebote aktiviert werden."
+      },
+      "erschwert": {
+        "single": "Ressourcen waren nur erschwert zugänglich.",
+        "group": "Ressourcen waren nur erschwert zugänglich."
+      },
+      "musik": {
+        "single": "Musikalische Angebote erleichterten den Zugang zu Ressourcen.",
+        "group": "Musikalische Angebote erleichterten den Zugang zu Ressourcen."
+      },
+      "kaum": {
+        "single": "Ressourcen waren kaum zugänglich.",
+        "group": "Ressourcen waren kaum zugänglich."
+      }
+    }
+  }
+}
