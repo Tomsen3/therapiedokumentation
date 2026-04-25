@@ -4,7 +4,7 @@ let selects = {};
 let singlePhrases = {};
 
 async function loadBausteine() {
-  const response = await fetch('bausteine.json?v=4', { cache: 'no-store' });
+  const response = await fetch('bausteine.json?v=5', { cache: 'no-store' });
   if (!response.ok) throw new Error('Bausteine konnten nicht geladen werden.');
   const data = await response.json();
   introOptions = data.introOptions || [];
@@ -161,7 +161,7 @@ function renderModeVisibility() {
   document.getElementById("methodsField").style.display = state.mode === "einzelgruppe" ? "none" : "block";
   document.getElementById("groupCriteria").style.display = state.mode === "gruppe" ? "block" : "none";
   document.getElementById("singleCriteria").style.display = state.mode !== "gruppe" ? "block" : "none";
-  document.getElementById("introField").style.display = "block";
+  document.getElementById("introField").style.display = state.mode === "einzelgruppe" ? "none" : "block";
 
   if (state.mode === "einzel") {
     allMethods().filter(item => item.groupOnly).forEach(item => state.methods.delete(item.id));
@@ -169,6 +169,7 @@ function renderModeVisibility() {
   }
   if (state.mode === "einzelgruppe") {
     state.methods.clear();
+    state.intro.clear();
   }
 
   renderIntroOptions();
@@ -280,7 +281,7 @@ function fillSingleTemplate(template, context) {
     .replace("{pronoun}", context.pronoun);
 }
 
-function generateSingleObservation(prefix, subjectOverride, pronounOverride, includeExtended = state.version === "lang") {
+function generateSingleObservation(prefix, subjectOverride, pronounOverride, includeExtended = true) {
   const isGroupObservation = prefix.startsWith("Bei ");
   const context = {
     subject: subjectOverride || prefix,
@@ -398,7 +399,6 @@ function generateEinzel() {
 function generateEinzelGruppe() {
   return [
     generateHeader(),
-    generateIntro(),
     generateSingleObservation("Bei " + groupPersonLabel(), groupPersonSubject(), undefined, true),
     generateClosing(),
     state.freeText.trim()
@@ -435,12 +435,12 @@ function copyGeneratedText() {
 function resetAll() {
   state.mode = "gruppe";
   state.version = "kurz";
-  state.intro = new Set(["kurze_begruessung"]);
+  state.intro = new Set();
   state.methods = new Set();
   state.singlePersonSalutation = "herr";
-  state.singlePersonInitials = "M";
+  state.singlePersonInitials = "";
   state.groupPersonSalutation = "herr";
-  state.groupPersonInitials = "M";
+  state.groupPersonInitials = "";
   state.docDate = "";
   state.docTime = "";
   state.groupName = "";
@@ -461,8 +461,8 @@ function resetAll() {
   state.freeText = "";
 
   ["docDate","docTime","groupName","station","singlePersonInitials","groupPersonInitials","freeText"].forEach(id => document.getElementById(id).value = "");
-  document.getElementById("singlePersonInitials").value = "M";
-  document.getElementById("groupPersonInitials").value = "M";
+  document.getElementById("singlePersonInitials").value = "";
+  document.getElementById("groupPersonInitials").value = "";
   initSelects();
   renderIntroOptions();
   renderButtons("mode", state.mode);
@@ -543,7 +543,7 @@ loadBausteine()
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js?v=4").catch(() => {
+    navigator.serviceWorker.register("./sw.js?v=5").catch(() => {
       // Die App funktioniert auch ohne Service Worker; Installation/Offline-Modus dann ggf. nicht.
     });
   });
