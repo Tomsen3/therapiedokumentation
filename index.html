@@ -7,9 +7,11 @@
   <meta name="theme-color" content="#2F6B4F" />
   <style>
     :root {
-      --bg: #F6F5F0;
-      --surface: #FFFFFF;
-      --surface-2: #E8ECE5;
+      --bg: #D9DFC6;
+      --surface: #FCFDF9;
+      --surface-2: #D4E9C7;
+      --header-bg: #CED8B7;
+      --secondary-bg: #EEF3E2;
       --text: #17211B;
       --muted: #606A62;
       --accent: #2F6B4F;
@@ -32,7 +34,7 @@
 
     header {
       padding: 24px 18px 16px;
-      background: linear-gradient(135deg, #FFFFFF 0%, #E8ECE5 100%);
+      background: var(--header-bg);
       border-bottom: 1px solid var(--border);
     }
 
@@ -100,10 +102,10 @@
       display: inline-flex;
       flex-wrap: wrap;
       gap: 6px;
-      padding: 5px;
-      background: var(--surface-2);
-      border-radius: 999px;
-      border: 1px solid var(--border);
+      padding: 0;
+      background: transparent;
+      border-radius: 0;
+      border: 0;
     }
 
     button, .chip {
@@ -139,7 +141,7 @@
       font-weight: 650;
     }
 
-    .btn-secondary { background: var(--surface-2); }
+    .btn-secondary { background: var(--secondary-bg); }
 
     .btn-danger {
       border-color: rgba(158, 63, 50, 0.25);
@@ -152,7 +154,7 @@
       padding: 14px;
       border: 1px solid var(--border);
       border-radius: 14px;
-      background: rgba(232, 236, 229, 0.35);
+      background: var(--bg);
     }
 
     label.block-label {
@@ -199,7 +201,7 @@
 
     .output {
       white-space: pre-wrap;
-      background: #fff;
+      background: #FDFEFA;
       border: 1px solid var(--border);
       border-radius: 14px;
       padding: 14px;
