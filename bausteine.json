@@ -2,13 +2,13 @@
   "introOptions": [
     {
       "id": "kurze_begruessung",
-      "label": "kurze Begr??ung",
-      "text": "Zu Beginn erfolgte eine kurze Begr??ung."
+      "label": "kurze Begrüßung",
+      "text": "Zu Beginn erfolgte eine kurze Begrüßung."
     },
     {
       "id": "begrussung_orientierung",
-      "label": "Begr??ung und Orientierung",
-      "text": "Zu Beginn erfolgten Begr??ung und kurze Orientierung."
+      "label": "Begrüßung und Orientierung",
+      "text": "Zu Beginn erfolgten Begrüßung und kurze Orientierung."
     },
     {
       "id": "befinden_abfragen",
@@ -18,7 +18,7 @@
     {
       "id": "direkter_einstieg",
       "label": "direkter Einstieg",
-      "text": "Nach kurzer Begr??ung erfolgte ein direkter Einstieg in das musiktherapeutische Angebot."
+      "text": "Nach kurzer Begrüßung erfolgte ein direkter Einstieg in das musiktherapeutische Angebot."
     },
     {
       "id": "ruhiger_einstieg",
@@ -32,8 +32,8 @@
     },
     {
       "id": "rueckmelderunde",
-      "label": "kurze R?ckmelderunde",
-      "text": "Es erfolgte eine kurze R?ckmelderunde zum aktuellen Befinden.",
+      "label": "kurze Rückmelderunde",
+      "text": "Es erfolgte eine kurze Rückmelderunde zum aktuellen Befinden.",
       "groupOnly": true
     },
     {
@@ -44,12 +44,12 @@
     },
     {
       "id": "ausfuehrlicher_einstieg",
-      "label": "ausf?hrlicherer Einstieg",
+      "label": "ausführlicherer Einstieg",
       "text": "Vorstellung und Orientierung nahmen zu Beginn mehr Raum ein."
     },
     {
       "id": "moderiert_begrenzt",
-      "label": "Gespr?ch moderiert / begrenzt",
+      "label": "Gespräch moderiert / begrenzt",
       "text": "Die Einstiegsrunde wurde strukturiert und zeitlich begrenzt.",
       "groupOnly": true
     }
