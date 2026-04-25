@@ -62,19 +62,22 @@
           "id": "bewegung_musik",
           "label": "Bewegung zur Musik",
           "text": "bewegungsorientierte Elemente zur Musik",
-          "focus": "Körperwahrnehmung, Regulation und Aktivierung"
+          "focus": "Körperwahrnehmung, Regulation und Aktivierung",
+          "langText": "Bewegungsbezogene Musikangebote unterstützten Aktivierung, Körperwahrnehmung und Spannungsregulation."
         },
         {
           "id": "atemtechnik",
           "label": "Atemtechnik",
           "text": "atembezogene Übungen",
-          "focus": "Atemregulation und Körperwahrnehmung"
+          "focus": "Atemregulation und Körperwahrnehmung",
+          "langText": "Atembezogene Übungen wurden zur Regulation und Körperwahrnehmung eingesetzt."
         },
         {
           "id": "koerperwahrnehmung",
           "label": "Körperwahrnehmung",
           "text": "Elemente der Körperwahrnehmung",
-          "focus": "Körperwahrnehmung und Selbstbezug"
+          "focus": "Körperwahrnehmung und Selbstbezug",
+          "langText": "Körperwahrnehmende Elemente dienten der Orientierung im eigenen Spannungs- und Aktivierungsniveau."
         },
         {
           "id": "stimmaktivierung",
@@ -99,7 +102,9 @@
           "label": "Rhythmusarbeit mit Instrumenten",
           "text": "Rhythmusarbeit mit Instrumenten",
           "focus": "Strukturierung, Aktivierung und Gruppensynchronisation",
-          "langText": "Rhythmische Elemente unterstützten Strukturierung, Aktivierung und Gruppensynchronisation."
+          "singleFocus": "Strukturierung, Aktivierung und Koordination",
+          "langText": "Rhythmische Elemente unterstützten Strukturierung, Aktivierung und Gruppensynchronisation.",
+          "singleLangText": "Rhythmische Elemente unterstützten Strukturierung, Aktivierung und Koordination."
         },
         {
           "id": "koordination_sync",
@@ -124,26 +129,30 @@
           "id": "bekanntes_lied",
           "label": "bekanntes Lied gemeinsam singen",
           "text": "gemeinsames Singen eines bekannten Liedes",
-          "focus": "Stimme, Vertrautheit und musikalische Resonanz"
+          "singleText": "Singen eines bekannten Liedes",
+          "focus": "Stimme, Vertrautheit und musikalische Resonanz",
+          "langText": "Das Singen eines bekannten Liedes nutzte Vertrautheit, Stimme und musikalische Resonanz als stabilisierende Zugänge."
         },
         {
           "id": "lied_einfuehren",
           "label": "Lied neu vorstellen / einführen",
           "text": "die Einführung eines neuen Liedes",
-          "focus": "Orientierung, Stimme und musikalischer Zugang"
+          "focus": "Orientierung, Stimme und musikalischer Zugang",
+          "langText": "Die Einführung eines neuen Liedes erfolgte orientierend und förderte den musikalischen Zugang."
         },
         {
           "id": "lied_impuls",
           "label": "Lied als Impuls",
           "text": "Lied als Impuls",
-          "focus": "Zugang zu eigenem Erleben, Selbstbezug und musikalische Resonanz",
-          "langText": "Das Lied wurde als musiktherapeutischer Impuls genutzt, um Zugang zu eigenem Erleben zu eröffnen."
+          "focus": "emotionaler Zugang, Selbstbezug und musikalische Resonanz",
+          "langText": "Das Lied wurde als musiktherapeutischer Impuls für emotionalen Zugang und musikalische Resonanz genutzt."
         },
         {
           "id": "lied_elemente",
           "label": "mit Lied-Elementen arbeiten",
           "text": "Arbeit mit einzelnen Elementen eines Liedes",
-          "focus": "Text, Melodie, Rhythmus und thematische Vertiefung"
+          "focus": "Text, Melodie, Rhythmus und thematische Vertiefung",
+          "langText": "Einzelne Liedelemente wurden zur strukturierten thematischen und musikalischen Vertiefung genutzt."
         }
       ]
     },
@@ -154,7 +163,8 @@
           "id": "freie_impro",
           "label": "freie Improvisation",
           "text": "freie Improvisation",
-          "focus": "Ausdruck, Spontaneität und eigenes Gestalten"
+          "focus": "Ausdruck, Spontaneität und musikalisches Gestalten",
+          "langText": "Freie Improvisation ermöglichte spontanen musikalischen Ausdruck und eigenes Gestalten."
         },
         {
           "id": "thematische_impro",
@@ -167,31 +177,36 @@
           "id": "ausdruck",
           "label": "Ausdruck über Stimme / Musik",
           "text": "Ausdrucksarbeit über Stimme und Musik",
-          "focus": "Ausdrucksfähigkeit und emotionaler Zugang"
+          "focus": "Ausdrucksfähigkeit und emotionaler Zugang",
+          "langText": "Stimme und Musik wurden als direkte Ausdrucksmedien eingesetzt."
         }
       ]
     },
     {
-      "title": "Musik hören & Reflexion",
+      "title": "Musik hören & Einordnung",
       "items": [
         {
           "id": "musik_hoeren",
           "label": "gemeinsames Musik hören",
           "text": "gemeinsames Musik hören",
-          "focus": "Wahrnehmungslenkung, Resonanzbildung und Reflexion",
-          "langText": "Das gemeinsame Hören von Musik wurde zur Wahrnehmungslenkung, Resonanzbildung und Reflexion genutzt."
+          "singleText": "Musikhören",
+          "focus": "Wahrnehmungslenkung, Resonanzbildung und kurze Einordnung",
+          "langText": "Das gemeinsame Hören von Musik wurde zur Wahrnehmungslenkung, Resonanzbildung und kurzen Einordnung genutzt.",
+          "singleLangText": "Das Musikhören wurde zur Wahrnehmungslenkung, Resonanzbildung und kurzen Einordnung genutzt."
         },
         {
           "id": "biografische_musik",
           "label": "biografische Musikarbeit",
           "text": "biografisch orientierte Musikarbeit",
-          "focus": "biografischer Bezug, Selbstbezug und Austausch"
+          "focus": "biografischer Bezug, Selbstbezug und Austausch",
+          "singleFocus": "biografischer Bezug und Selbstbezug",
+          "langText": "Biografisch orientierte Musikarbeit ermöglichte einen klinisch gut fassbaren Bezug zu vertrauter Musik."
         },
         {
           "id": "austausch_feedback",
           "label": "Austausch / Rückmeldung",
           "text": "Austausch und Rückmeldungen innerhalb der Gruppe",
-          "focus": "Kontaktgestaltung, Reflexion und soziale Resonanz",
+          "focus": "Kontaktgestaltung, Rückmeldung und soziale Resonanz",
           "groupOnly": true
         }
       ]
@@ -203,13 +218,15 @@
           "id": "partnerarbeit",
           "label": "Partnerarbeit (z. B. Live-Kinetik)",
           "text": "Partnerarbeit mit koordinativen Elementen",
-          "focus": "Kontakt, Koordination und Abstimmung"
+          "focus": "Kontakt, Koordination und Abstimmung",
+          "langText": "Koordinative Partnerarbeit unterstützte Kontaktaufnahme, Abstimmung und Aufmerksamkeitslenkung."
         },
         {
           "id": "gfk",
           "label": "GFK-Übungen",
           "text": "kommunikations- und wahrnehmungsbezogene Übungen aus der GFK",
-          "focus": "Wahrnehmung, Kommunikation und Selbstklärung"
+          "focus": "Wahrnehmung, Kommunikation und Selbstklärung",
+          "langText": "Wahrnehmungs- und kommunikationsbezogene Übungen unterstützten klare Benennung und Abstimmung."
         },
         {
           "id": "begrussungsritual",
@@ -222,19 +239,22 @@
           "id": "erfahrungsuebung",
           "label": "angeleitete Erfahrungsübungen",
           "text": "angeleitete erfahrungsorientierte Übungen",
-          "focus": "Selbstwahrnehmung, Erfahrung und Reflexion"
+          "focus": "Selbstwahrnehmung, Erfahrung und kurze Einordnung",
+          "langText": "Angeleitete Erfahrungsübungen unterstützten Selbstwahrnehmung und eine kurze klinische Einordnung des Erlebten."
         },
         {
           "id": "raumwahrnehmung",
           "label": "Raumwahrnehmung über Bewegung",
           "text": "Raumwahrnehmung über Gehen, Erkunden und Beschreiben",
-          "focus": "Raumwahrnehmung, Orientierung und Selbstbezug"
+          "focus": "Raumwahrnehmung, Orientierung und Selbstbezug",
+          "langText": "Raumbezogene Bewegung unterstützte Orientierung, Körperwahrnehmung und Aktivierung."
         },
         {
           "id": "geschichten",
           "label": "Geschichten / szenisches Arbeiten",
           "text": "szenische Methoden mit Entwicklung eigener Geschichten",
-          "focus": "Kreativität, Ausdruck und Perspektivwechsel"
+          "focus": "Kreativität, Ausdruck und Perspektivwechsel",
+          "langText": "Szenische Methoden ermöglichten Ausdruck, Perspektivwechsel und strukturierte Gestaltung."
         }
       ]
     },
@@ -245,25 +265,29 @@
           "id": "entspannung",
           "label": "Entspannung",
           "text": "entspannende Elemente",
-          "focus": "Regulation, Entlastung und Beruhigung"
+          "focus": "Regulation, Entlastung und Beruhigung",
+          "langText": "Entspannende Elemente wurden zur Beruhigung und Spannungsregulation eingesetzt."
         },
         {
           "id": "ruhiger_ausklang",
           "label": "ruhiger Ausklang / Summen",
           "text": "ein ruhiger Ausklang mit Summen oder Tönen",
-          "focus": "Beruhigung, Stimme und Selbstregulation"
+          "focus": "Beruhigung, Stimme und Selbstregulation",
+          "langText": "Summen und Tönen unterstützten einen ruhigen Abschluss und die Selbstregulation."
         },
         {
           "id": "abschlusslied",
           "label": "Abschlusslied",
           "text": "ein Abschlusslied",
-          "focus": "Rahmung, Orientierung und Abschluss"
+          "focus": "Rahmung, Orientierung und Abschluss",
+          "langText": "Das Abschlusslied diente der Rahmung, Orientierung und klaren Beendigung der Stunde."
         },
         {
           "id": "kurze_reflexion",
-          "label": "kurze Reflexion",
-          "text": "eine kurze Abschlussreflexion",
-          "focus": "Reflexion und Integration"
+          "label": "kurze Einordnung",
+          "text": "eine kurze Einordnung zum Abschluss",
+          "focus": "kurze Einordnung und Abschluss",
+          "langText": "Die kurze Einordnung diente der knappen Abrundung der Stunde."
         }
       ]
     }
@@ -325,7 +349,7 @@
       [
         "passiv",
         "passiv / beobachtend",
-        "Die Teilnahme war überwiegend passiv und beobachtend."
+        "Die Beteiligung war überwiegend passiv und beobachtend."
       ]
     ],
     "access": [
@@ -352,12 +376,12 @@
       [
         "erschwert",
         "erschwert zugänglich",
-        "Der Zugang zum inneren Erleben war erschwert."
+        "Der emotionale Zugang war erschwert."
       ],
       [
         "belastet",
         "emotional belastet",
-        "Es wurden emotional belastete Anteile sichtbar."
+        "Emotional belastete Anteile wurden sichtbar."
       ]
     ],
     "effect": [
@@ -426,7 +450,7 @@
       [
         "unterstuetzend",
         "unterstützend",
-        "Das Gruppenklima hatte unterstützende Anteile."
+        "Das Gruppenklima wirkte unterstützend."
       ]
     ],
     "groupDynamics": [
@@ -458,7 +482,7 @@
       [
         "strukturbeduerftig",
         "strukturbedürftig",
-        "Die Gruppe benötigte wiederholt strukturierende Impulse."
+        "Die Gruppe benötigte wiederholt Strukturierung."
       ]
     ],
     "groupIntegration": [
@@ -470,12 +494,12 @@
       [
         "gut",
         "gut integriert",
-        "Einzelne Teilnehmende waren gut in das Gruppengeschehen eingebunden."
+        "Einzelne Teilnehmende waren gut eingebunden."
       ],
       [
         "teilweise",
         "teilweise integriert",
-        "Einzelne Teilnehmende konnten teilweise eingebunden werden."
+        "Einzelne Teilnehmende waren teilweise eingebunden."
       ],
       [
         "randstaendig",
@@ -657,7 +681,7 @@
       [
         "keine_auffaelligkeiten",
         "keine besonderen Auffälligkeiten",
-        "Es ergaben sich keine besonderen therapeutischen Auffälligkeiten."
+        "Es ergaben sich keine besonderen klinischen Auffälligkeiten."
       ],
       [
         "fortfuehrung",
@@ -694,24 +718,24 @@
     "expression": {
       "aktiv": {
         "single": "brachte {pronoun} sich aktiv und gestaltend ein",
-        "group": "Das Einbringen war aktiv und gestaltend beobachtbar."
+        "group": "{subject} war ein aktives und gestaltendes Einbringen beobachtbar."
       },
       "zoegerlich": {
         "single": "blieb der musikalische und verbale Ausdruck zunächst zögerlich",
-        "group": "Der musikalische und verbale Ausdruck blieb zunächst zögerlich.",
+        "group": "{subject} blieb der musikalische und verbale Ausdruck zunächst zögerlich.",
         "sentence": "Der musikalische und verbale Ausdruck blieb zunächst zögerlich."
       },
       "beobachtend": {
         "single": "nahm {pronoun} überwiegend beobachtend teil",
-        "group": "Das Verhalten blieb überwiegend beobachtend."
+        "group": "{subject} blieb das Verhalten überwiegend beobachtend."
       },
       "impulsiv": {
         "single": "wirkte der Ausdruck impulsiv und wenig strukturiert",
-        "group": "Der Ausdruck wirkte impulsiv und wenig strukturiert."
+        "group": "{subject} wirkte der Ausdruck impulsiv und wenig strukturiert."
       },
       "orientiert": {
         "single": "wirkte das Verhalten angepasst und orientiert",
-        "group": "Das Verhalten wirkte angepasst und orientiert."
+        "group": "{subject} wirkte das Verhalten angepasst und orientiert."
       }
     },
     "affect": {
@@ -724,19 +748,19 @@
     "regulation": {
       "stabil": {
         "single": "{subject} konnte die Selbstregulation stabil halten.",
-        "group": "Die Selbstregulation blieb stabil."
+        "group": "{prefix} blieb die Selbstregulation stabil."
       },
       "unterstuetzung": {
         "single": "Die Selbstregulation ließ sich durch strukturierende Impulse unterstützen.",
-        "group": "Die Selbstregulation ließ sich durch strukturierende Impulse unterstützen."
+        "group": "{prefix} ließ sich die Selbstregulation durch strukturierende Impulse unterstützen."
       },
       "ueberfordert": {
         "single": "Bei erhöhter Anforderung war Unterstützung zur Regulation erforderlich.",
-        "group": "Bei erhöhter Anforderung war Unterstützung zur Regulation erforderlich."
+        "group": "{prefix} war bei erhöhter Anforderung Unterstützung zur Regulation erforderlich."
       },
       "zunehmend": {
         "single": "Die Selbstregulation gelang zunehmend besser.",
-        "group": "Die Selbstregulation gelang zunehmend besser."
+        "group": "{prefix} gelang die Selbstregulation zunehmend besser."
       },
       "struktur": {
         "single": "Auf strukturierende musikalische Impulse reagierte {pronoun} zunehmend.",
@@ -746,23 +770,23 @@
     "resources": {
       "gut": {
         "single": "Ressourcen waren gut zugänglich.",
-        "group": "Ressourcen waren gut zugänglich."
+        "group": "{prefix} waren Ressourcen gut zugänglich."
       },
       "punktuell": {
         "single": "Ressourcen waren punktuell zugänglich und konnten über musikalische Angebote aktiviert werden.",
-        "group": "Ressourcen waren punktuell zugänglich und konnten über musikalische Angebote aktiviert werden."
+        "group": "{prefix} waren Ressourcen punktuell zugänglich und konnten über musikalische Angebote aktiviert werden."
       },
       "erschwert": {
         "single": "Ressourcen waren nur erschwert zugänglich.",
-        "group": "Ressourcen waren nur erschwert zugänglich."
+        "group": "{prefix} waren Ressourcen nur erschwert zugänglich."
       },
       "musik": {
         "single": "Musikalische Angebote erleichterten den Zugang zu Ressourcen.",
-        "group": "Musikalische Angebote erleichterten den Zugang zu Ressourcen."
+        "group": "{prefix} erleichterten musikalische Angebote den Zugang zu Ressourcen."
       },
       "kaum": {
         "single": "Ressourcen waren kaum zugänglich.",
-        "group": "Ressourcen waren kaum zugänglich."
+        "group": "{prefix} waren Ressourcen kaum zugänglich."
       }
     }
   }

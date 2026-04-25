@@ -2,9 +2,10 @@ let introOptions = [];
 let methodGroups = [];
 let selects = {};
 let singlePhrases = {};
+const ASSET_VERSION = "8";
 
 async function loadBausteine() {
-  const response = await fetch('bausteine.json?v=7', { cache: 'no-store' });
+  const response = await fetch(`bausteine.json?v=${ASSET_VERSION}`, { cache: 'no-store' });
   if (!response.ok) throw new Error('Bausteine konnten nicht geladen werden.');
   const data = await response.json();
   introOptions = data.introOptions || [];
@@ -15,7 +16,7 @@ async function loadBausteine() {
 
 function showLoadError(error) {
   const output = document.getElementById('output');
-  output.value = 'Die Textbausteine konnten nicht geladen werden. Bitte die Seite neu laden oder die bausteine.json pruefen.';
+  output.value = 'Die Textbausteine konnten nicht geladen werden. Bitte die Seite neu laden oder die bausteine.json prüfen.';
   document.getElementById('copyStatus').textContent = error.message;
   document.getElementById('methodList').textContent = 'Textbausteine konnten nicht geladen werden.';
   document.getElementById('introOptions').textContent = 'Textbausteine konnten nicht geladen werden.';
@@ -62,7 +63,7 @@ function getMethod(id) {
 }
 
 function lookupText(type, id) {
-  const found = selects[type].find(row => row[0] === id);
+  const found = (selects[type] || []).find(row => row[0] === id);
   return found ? found[2] : "";
 }
 
@@ -141,7 +142,7 @@ function renderMethods() {
 function renderSelect(id, options, value) {
   const el = document.getElementById(id);
   el.innerHTML = "";
-  options.forEach(([val, label]) => {
+  (options || []).forEach(([val, label]) => {
     const opt = document.createElement("option");
     opt.value = val;
     opt.textContent = label;
@@ -206,15 +207,19 @@ function generateMethods() {
   const selectedItems = Array.from(state.methods).map(getMethod).filter(Boolean);
   if (!selectedItems.length) return "";
 
-  const methodTexts = selectedItems.map(item => item.text);
-  const focusTexts = [...new Set(selectedItems.map(item => item.focus).filter(Boolean))];
-  const methodDetails = selectedItems.map(item => item.langText).filter(Boolean);
+  const methodTexts = selectedItems.map(methodTextForMode);
+  const focusTexts = [...new Set(selectedItems.map(methodFocusForMode).filter(Boolean))];
+  const methodDetails = selectedItems.map(methodDetailForMode).filter(Boolean);
 
   const lines = [];
   if (selectedItems.length === 1) {
-    lines.push("Als zentraler methodischer Baustein wurde " + methodTexts[0] + " eingesetzt.");
+    lines.push(state.version === "kurz"
+      ? "Methodisch wurde " + methodTexts[0] + " eingesetzt."
+      : "Als zentraler musiktherapeutischer Baustein wurde " + methodTexts[0] + " eingesetzt.");
   } else {
-    lines.push("Eingesetzt wurden " + joinItems(methodTexts) + ".");
+    lines.push(state.version === "kurz"
+      ? "Methodisch kamen " + joinItems(methodTexts) + " zum Einsatz."
+      : "Eingesetzt wurden " + joinItems(methodTexts) + ".");
   }
 
   if (state.version === "lang" && methodDetails.length) {
@@ -233,6 +238,34 @@ function generateMethods() {
   return lines.join("\n");
 }
 
+function methodTextForMode(item) {
+  if (state.mode === "einzel" && item.singleText) return item.singleText;
+  let text = item.text;
+  if (state.mode === "einzel") {
+    text = text
+      .replace("gemeinsames Singen eines", "Singen eines")
+      .replace("gemeinsames Musik hören", "Musikhören")
+      .replace("gemeinsames Hören von Musik", "Musikhören");
+  }
+  return text;
+}
+
+function methodFocusForMode(item) {
+  const focus = state.mode === "einzel" && item.singleFocus ? item.singleFocus : item.focus;
+  if (!focus || state.mode !== "einzel") return focus;
+  return focus
+    .replace("Gruppensynchronisation", "Synchronisation")
+    .replace("Gruppenorientierung", "Orientierung");
+}
+
+function methodDetailForMode(item) {
+  const detail = state.mode === "einzel" && item.singleLangText ? item.singleLangText : item.langText;
+  if (!detail || state.mode !== "einzel") return detail;
+  return detail
+    .replace("Gruppensynchronisation", "Synchronisation")
+    .replace("Das gemeinsame Hören von Musik", "Das Musikhören");
+}
+
 function subjectForSingle() {
   const initial = singlePersonInitial();
   if (state.singlePersonSalutation === "herr") {
@@ -241,13 +274,7 @@ function subjectForSingle() {
   if (state.singlePersonSalutation === "frau") {
     return { subject: "Frau " + initial + ".", pronoun: "sie", dative: "Frau " + initial + "." };
   }
-  if (state.singlePersonSalutation === "patientin") {
-    return { subject: "Die Patientin", pronoun: "sie", dative: "der Patientin" };
-  }
-  if (state.singlePersonSalutation === "neutral") {
-    return { subject: "Die behandelte Person", pronoun: "sie", dative: "der behandelten Person" };
-  }
-  return { subject: "Der Patient", pronoun: "er", dative: "dem Patienten" };
+  return { subject: "Herr " + initial + ".", pronoun: "er", dative: "Herrn " + initial + "." };
 }
 
 function cleanInitials(value) {
@@ -277,8 +304,9 @@ function groupPersonSubject() {
 
 function fillSingleTemplate(template, context) {
   return template
-    .replace("{subject}", context.subject)
-    .replace("{pronoun}", context.pronoun);
+    .replaceAll("{prefix}", context.prefix)
+    .replaceAll("{subject}", context.subject)
+    .replaceAll("{pronoun}", context.pronoun);
 }
 
 function expressionSentenceWithSubject(id, context) {
@@ -295,6 +323,7 @@ function expressionSentenceWithSubject(id, context) {
 function generateSingleObservation(prefix, subjectOverride, pronounOverride, includeExtended = true) {
   const isGroupObservation = prefix.startsWith("Bei ");
   const context = {
+    prefix,
     subject: subjectOverride || prefix,
     pronoun: pronounOverride || pronounForPrefix(prefix)
   };
@@ -319,7 +348,7 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride, inc
     const expressionSentence = !isGroupObservation && !contact
       ? expressionSentenceWithSubject(state.singleExpression, context)
       : isGroupObservation
-      ? expression.group
+      ? fillSingleTemplate(expression.group, { subject: prefix, pronoun: context.pronoun })
       : expression.sentence
         ? expression.sentence
       : "Im Ausdruck " + fillSingleTemplate(expression.single, context) + ".";
@@ -336,7 +365,9 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride, inc
     lines.push(affectSentence);
 
     if (state.version === "lang" && state.singleAffect === "angespannt") {
-      lines.push("Musikalische Angebote ermöglichten eine vorsichtige Regulation.");
+      lines.push(isGroupObservation
+        ? prefix + " ermöglichten musikalische Angebote eine vorsichtige Regulation."
+        : "Musikalische Angebote ermöglichten eine vorsichtige Regulation.");
     }
   }
 
@@ -351,7 +382,7 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride, inc
 
     const resources = singlePhrases.resources[state.singleResources];
     if (resources) {
-      lines.push(isGroupObservation ? resources.group : resources.single);
+      lines.push(fillSingleTemplate(isGroupObservation ? resources.group : resources.single, context));
     }
   }
 
@@ -359,8 +390,6 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride, inc
 }
 
 function pronounForPrefix(prefix) {
-  if (prefix.startsWith("Die Patientin")) return "sie";
-  if (prefix.startsWith("Die behandelte Person")) return "sie";
   if (prefix.startsWith("Bei Frau")) return "sie";
   return "er";
 }
@@ -478,6 +507,7 @@ function resetAll() {
   ["docDate","docTime","groupName","station","singlePersonInitials","groupPersonInitials","freeText"].forEach(id => document.getElementById(id).value = "");
   document.getElementById("singlePersonInitials").value = "";
   document.getElementById("groupPersonInitials").value = "";
+  document.getElementById("copyStatus").textContent = "";
   initSelects();
   renderIntroOptions();
   renderButtons("mode", state.mode);
@@ -558,7 +588,7 @@ loadBausteine()
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js?v=7").catch(() => {
+    navigator.serviceWorker.register(`./sw.js?v=${ASSET_VERSION}`).catch(() => {
       // Die App funktioniert auch ohne Service Worker; Installation/Offline-Modus dann ggf. nicht.
     });
   });
