@@ -502,3 +502,11 @@ loadBausteine()
     generate();
   })
   .catch(showLoadError);
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {
+      // Die App funktioniert auch ohne Service Worker; Installation/Offline-Modus dann ggf. nicht.
+    });
+  });
+}
