@@ -1,0 +1,43 @@
+Bitte bearbeite die Datei preview.html weiter.
+
+Kontext:
+Es handelt sich um eine PWA zur schnellen institutionellen Dokumentation musiktherapeutischer Stunden. Ziel ist ein praxistauglicher Generator für klinisch gut lesbare, KIS-taugliche Dokumentationstexte, keine Reflexions-App.
+
+Aktueller Stand:
+- Titel: Therapiedokumentation
+- Modi:
+  1. Gruppendokumentation
+  2. Einzeldokumentation
+  3. Einzelbeobachtung Gruppe
+- Ausgabetext ist bearbeitbar.
+- Kurz- und Langversion vorhanden.
+- Freitext bleibt unbegrenzt.
+- Rahmendaten, Einstieg, Inhalte/Aktionen und Kriterienbereiche sind einklappbar.
+- Einzelbeobachtung Gruppe nutzt „Bei Herrn M.“ / „Bei Frau Sch.“ mit Nachnamenkürzel.
+- Der Satzanfang soll nicht ständig wiederholt werden.
+
+Wichtige Regeln:
+- Keine Ich- oder Wir-Formulierungen.
+- Keine Generator-Wiederholungen.
+- Keine Gruppensprache im Einzelmodus.
+- Keine Patientensprache im Gruppenmodus.
+- Klinisch verständlich, aber nicht übertrieben fachsprachlich.
+- Kurzversion maximal kompakt.
+- Langversion etwas ausführlicher, aber nicht ausufernd.
+- Keine neuen großen Funktionen ohne Rückfrage.
+- Sprachliche Stabilität vor UI-Verbesserungen.
+
+Nächste Aufgabe:
+Bitte prüfe und verbessere die generierten Texte in allen drei Modi sprachlich. Achte besonders auf:
+- natürliche Satzanfänge
+- keine Wiederholungen wie „zeigte sich … zeigte sich“
+- saubere Grammatik
+- fachlich klare Formulierungen für Kontakt, Ausdruck/Verhalten, Affekt, Selbstregulation und Ressourcen
+- sinnvolle Kurz-/Langversionen
+- stabile EventListener und funktionierende Buttons/Dropdowns
+
+Nach Änderungen bitte kurz angeben:
+- was geändert wurde
+- warum
+- was fachlich noch geprüft werden sollte
+- welche Funktionstests durchgeführt wurden
