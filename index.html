@@ -546,9 +546,9 @@
     const selects = {
       dynamic: [
         ["", "nicht übernehmen", ""],
-        ["konstant_stabil", "konstant stabil", "Die Gruppe zeigte sich im Verlauf konstant stabil."],
-        ["zunehmend_geoeffnet", "zunehmend geöffnet", "Die Gruppe zeigte im Verlauf eine zunehmende Öffnung."],
-        ["zunehmend_unruhig", "zunehmend unruhig", "Die Gruppe zeigte im Verlauf eine zunehmende Unruhe."],
+        ["konstant_stabil", "konstant stabil", "Der Gruppenverlauf blieb konstant stabil."],
+        ["zunehmend_geoeffnet", "zunehmend geöffnet", "Im Verlauf nahm die Offenheit innerhalb der Gruppe zu."],
+        ["zunehmend_unruhig", "zunehmend unruhig", "Im Verlauf nahm die Unruhe innerhalb der Gruppe zu."],
         ["schwankend", "schwankend", "Der Gruppenverlauf wirkte schwankend."],
         ["schwer_kontakt", "schwer in Kontakt kommend", "Die Gruppe kam nur erschwert in Kontakt."]
       ],
@@ -582,12 +582,12 @@
         ["vorsichtig", "vorsichtig", "Das Gruppenklima blieb zunächst vorsichtig."],
         ["distanziert", "distanziert", "Das Gruppenklima wirkte phasenweise distanziert."],
         ["angespannt", "angespannt", "Das Gruppenklima war von Anspannung geprägt."],
-        ["unterstuetzend", "unterstützend", "Das Gruppenklima zeigte unterstützende Anteile."]
+        ["unterstuetzend", "unterstützend", "Das Gruppenklima hatte unterstützende Anteile."]
       ],
       groupDynamics: [
         ["", "nicht übernehmen", ""],
         ["kooperativ", "kooperativ", "Die Gruppendynamik war kooperativ."],
-        ["wechselhaft", "wechselhaft", "Die Gruppendynamik zeigte sich wechselhaft."],
+        ["wechselhaft", "wechselhaft", "Die Gruppendynamik verlief wechselhaft."],
         ["unruhig", "unruhig", "Die Gruppendynamik war phasenweise unruhig."],
         ["zurueckhaltend", "zurückhaltend", "Die Gruppendynamik blieb zurückhaltend."],
         ["strukturbeduerftig", "strukturbedürftig", "Die Gruppe benötigte wiederholt strukturierende Impulse."]
@@ -626,8 +626,8 @@
       singleRegulation: [
         ["", "nicht übernehmen", ""],
         ["stabil", "stabil", "Die Selbstregulation war stabil."],
-        ["unterstuetzung", "unterstützungsbedürftig", "Die Selbstregulation zeigte sich unterstützungsbedürftig."],
-        ["ueberfordert", "überfordert", "Es zeigte sich eine Überforderung in der Selbstregulation."],
+        ["unterstuetzung", "unterstützungsbedürftig", "Die Selbstregulation war unterstützungsbedürftig."],
+        ["ueberfordert", "überfordert", "Die Selbstregulation war bei erhöhter Anforderung überfordert."],
         ["zunehmend", "zunehmend reguliert", "Im Verlauf gelang zunehmend bessere Selbstregulation."],
         ["struktur", "reagierte auf Struktur", "Auf strukturierende Impulse konnte reagiert werden."]
       ],
@@ -641,7 +641,7 @@
       ],
       closing: [
         ["", "keine Abschlussformulierung", ""],
-        ["keine_auffaelligkeiten", "keine besonderen Auffälligkeiten", "Es zeigten sich keine besonderen therapeutischen Auffälligkeiten im Verlauf."],
+        ["keine_auffaelligkeiten", "keine besonderen Auffälligkeiten", "Im Verlauf ergaben sich keine besonderen therapeutischen Auffälligkeiten."],
         ["fortfuehrung", "Fortführung im Behandlungsplan", "Eine Fortführung im Rahmen des Behandlungsplans ist vorgesehen."],
         ["beobachtung", "weiterer Verlauf wird beobachtet", "Der weitere Verlauf wird beobachtet."],
         ["anpassung", "Anpassung empfohlen", "Eine Anpassung des weiteren Vorgehens wird empfohlen."]
@@ -649,18 +649,18 @@
     };
     const singlePhrases = {
       contact: {
-        gut: "im Kontakt gut erreichbar",
-        vorsichtig: "im Kontakt vorsichtig und zurückhaltend",
-        wechselhaft: "im Kontakt wechselhaft erreichbar",
-        vermeidend: "im Kontakt eher vermeidend",
-        schwer: "im Kontakt erschwert erreichbar"
+        gut: "gut erreichbar",
+        vorsichtig: "vorsichtig und zurückhaltend",
+        wechselhaft: "wechselhaft erreichbar",
+        vermeidend: "eher vermeidend",
+        schwer: "erschwert erreichbar"
       },
       groupContact: {
-        gut: "ein gut erreichbarer Kontakt",
-        vorsichtig: "ein vorsichtiger und zurückhaltender Kontakt",
-        wechselhaft: "ein wechselhaft erreichbarer Kontakt",
-        vermeidend: "ein eher vermeidender Kontakt",
-        schwer: "ein erschwert erreichbarer Kontakt"
+        gut: "gut erreichbar",
+        vorsichtig: "vorsichtig und zurückhaltend",
+        wechselhaft: "wechselhaft erreichbar",
+        vermeidend: "eher vermeidend",
+        schwer: "erschwert erreichbar"
       },
       expression: {
         aktiv: {
@@ -680,7 +680,7 @@
           group: "Der Ausdruck wirkte impulsiv und wenig strukturiert."
         },
         orientiert: {
-          single: "zeigte {pronoun} angepasstes und orientiertes Verhalten",
+          single: "wirkte das Verhalten angepasst und orientiert",
           group: "Das Verhalten wirkte angepasst und orientiert."
         }
       },
@@ -694,7 +694,7 @@
       regulation: {
         stabil: {
           single: "{subject} konnte die Selbstregulation stabil halten.",
-          group: "Die Selbstregulation zeigte sich stabil."
+          group: "Die Selbstregulation blieb stabil."
         },
         unterstuetzung: {
           single: "Die Selbstregulation ließ sich durch strukturierende Impulse unterstützen.",
@@ -727,8 +727,8 @@
           group: "Ressourcen waren nur erschwert zugänglich."
         },
         musik: {
-          single: "Ressourcen konnten über musikalische Angebote aktiviert werden.",
-          group: "Ressourcen konnten über musikalische Angebote aktiviert werden."
+          single: "Musikalische Angebote erleichterten den Zugang zu Ressourcen.",
+          group: "Musikalische Angebote erleichterten den Zugang zu Ressourcen."
         },
         kaum: {
           single: "Ressourcen waren kaum zugänglich.",
@@ -832,10 +832,10 @@
         el.appendChild(opt);
       });
 
-      el.addEventListener("change", () => {
+      el.onchange = () => {
         state[id] = el.value;
         generate();
-      });
+      };
     }
 
     function renderModeVisibility() {
@@ -947,8 +947,8 @@
         : singlePhrases.contact[state.singleContact];
       if (contact) {
         const contactSentence = isGroupObservation
-          ? prefix + " zeigte sich " + contact + "."
-          : prefix + " zeigte sich " + contact + ".";
+          ? prefix + " war der Kontakt " + contact + "."
+          : context.subject + " war im Kontakt " + contact + ".";
         lines.push(contactSentence);
       }
 
