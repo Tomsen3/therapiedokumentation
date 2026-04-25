@@ -2,7 +2,7 @@ let introOptions = [];
 let methodGroups = [];
 let selects = {};
 let singlePhrases = {};
-const ASSET_VERSION = "8";
+const ASSET_VERSION = "9";
 
 async function loadBausteine() {
   const response = await fetch(`bausteine.json?v=${ASSET_VERSION}`, { cache: 'no-store' });
@@ -306,6 +306,7 @@ function fillSingleTemplate(template, context) {
   return template
     .replaceAll("{prefix}", context.prefix)
     .replaceAll("{subject}", context.subject)
+    .replaceAll("{dative}", context.dative)
     .replaceAll("{pronoun}", context.pronoun);
 }
 
@@ -320,11 +321,12 @@ function expressionSentenceWithSubject(id, context) {
   return sentences[id] || "";
 }
 
-function generateSingleObservation(prefix, subjectOverride, pronounOverride, includeExtended = true) {
+function generateSingleObservation(prefix, subjectOverride, pronounOverride, includeExtended = true, dativeOverride) {
   const isGroupObservation = prefix.startsWith("Bei ");
   const context = {
     prefix,
     subject: subjectOverride || prefix,
+    dative: dativeOverride || subjectOverride || prefix,
     pronoun: pronounOverride || pronounForPrefix(prefix)
   };
   const lines = [];
@@ -336,9 +338,9 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride, inc
     const contactSentence = state.version === "lang" && state.singleContact === "vorsichtig"
       ? (isGroupObservation
         ? prefix + " erfolgte die Kontaktaufnahme zunächst vorsichtig."
-        : "Im therapeutischen Kontakt erfolgte zunächst eine vorsichtige Kontaktaufnahme.")
+        : context.subject + " nahm den therapeutischen Kontakt zunächst vorsichtig auf.")
       : (isGroupObservation
-        ? prefix + " war Kontakt " + contact + "."
+        ? prefix + " war der Kontakt " + contact + "."
         : context.subject + " war im Kontakt " + contact + ".");
     lines.push(contactSentence);
   }
@@ -358,7 +360,7 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride, inc
   const affect = singlePhrases.affect[state.singleAffect];
   if (affect) {
     const affectSentence = isGroupObservation
-      ? "Affektiv wirkte " + context.subject + " " + affect + "."
+      ? prefix + " wirkte der Affekt " + affect + "."
       : lines.length
         ? "Affektiv wirkte " + context.pronoun + " " + affect + "."
         : "Affektiv wirkte " + context.subject + " " + affect + ".";
@@ -434,7 +436,7 @@ function generateEinzel() {
     generateHeader(),
     generateIntro(),
     generateMethods(),
-    generateSingleObservation(single.subject, single.subject, single.pronoun),
+    generateSingleObservation(single.subject, single.subject, single.pronoun, true, single.dative),
     generateClosing(),
     state.freeText.trim()
   ].filter(Boolean).join("\n");

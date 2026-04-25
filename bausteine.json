@@ -751,41 +751,41 @@
         "group": "{prefix} blieb die Selbstregulation stabil."
       },
       "unterstuetzung": {
-        "single": "Die Selbstregulation ließ sich durch strukturierende Impulse unterstützen.",
+        "single": "{subject} profitierte bei der Selbstregulation von strukturierenden Impulsen.",
         "group": "{prefix} ließ sich die Selbstregulation durch strukturierende Impulse unterstützen."
       },
       "ueberfordert": {
-        "single": "Bei erhöhter Anforderung war Unterstützung zur Regulation erforderlich.",
+        "single": "{subject} benötigte bei erhöhter Anforderung Unterstützung zur Regulation.",
         "group": "{prefix} war bei erhöhter Anforderung Unterstützung zur Regulation erforderlich."
       },
       "zunehmend": {
-        "single": "Die Selbstregulation gelang zunehmend besser.",
+        "single": "{subject} gelang die Selbstregulation zunehmend besser.",
         "group": "{prefix} gelang die Selbstregulation zunehmend besser."
       },
       "struktur": {
-        "single": "Auf strukturierende musikalische Impulse reagierte {pronoun} zunehmend.",
-        "group": "Auf strukturierende musikalische Impulse reagierte {subject} zunehmend."
+        "single": "{subject} reagierte zunehmend auf strukturierende musikalische Impulse.",
+        "group": "{prefix} war eine zunehmende Reaktion auf strukturierende musikalische Impulse beobachtbar."
       }
     },
     "resources": {
       "gut": {
-        "single": "Ressourcen waren gut zugänglich.",
+        "single": "Bei {dative} waren Ressourcen gut zugänglich.",
         "group": "{prefix} waren Ressourcen gut zugänglich."
       },
       "punktuell": {
-        "single": "Ressourcen waren punktuell zugänglich und konnten über musikalische Angebote aktiviert werden.",
+        "single": "Bei {dative} waren Ressourcen punktuell zugänglich und konnten über musikalische Angebote aktiviert werden.",
         "group": "{prefix} waren Ressourcen punktuell zugänglich und konnten über musikalische Angebote aktiviert werden."
       },
       "erschwert": {
-        "single": "Ressourcen waren nur erschwert zugänglich.",
+        "single": "Bei {dative} waren Ressourcen nur erschwert zugänglich.",
         "group": "{prefix} waren Ressourcen nur erschwert zugänglich."
       },
       "musik": {
-        "single": "Musikalische Angebote erleichterten den Zugang zu Ressourcen.",
+        "single": "Bei {dative} erleichterten musikalische Angebote den Zugang zu Ressourcen.",
         "group": "{prefix} erleichterten musikalische Angebote den Zugang zu Ressourcen."
       },
       "kaum": {
-        "single": "Ressourcen waren kaum zugänglich.",
+        "single": "Bei {dative} waren Ressourcen kaum zugänglich.",
         "group": "{prefix} waren Ressourcen kaum zugänglich."
       }
     }

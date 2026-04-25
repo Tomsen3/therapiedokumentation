@@ -9,9 +9,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Therapiedoku" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <link rel="manifest" href="manifest.webmanifest?v=8" />
+  <link rel="manifest" href="manifest.webmanifest?v=9" />
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="stylesheet" href="styles.css?v=8" />
+  <link rel="stylesheet" href="styles.css?v=9" />
 </head>
 <body>
   <header>
@@ -54,7 +54,7 @@
           </div>
           <div>
             <label class="inline-label">Nachname-Kürzel, 1–3 Buchstaben</label>
-            <input id="singlePersonInitials" maxlength="3" placeholder="z. B. M oder Sch" />
+            <input id="singlePersonInitials" maxlength="3" autocomplete="off" placeholder="z. B. M oder Sch" />
           </div>
         </div>
         <p class="small">Im Text erscheint z. B. „Herr M.“ oder „Frau Sch.“.</p>
@@ -72,7 +72,7 @@
           </div>
           <div>
             <label class="inline-label">Nachname-Kürzel, 1–3 Buchstaben</label>
-            <input id="groupPersonInitials" maxlength="3" placeholder="z. B. M oder Sch" />
+            <input id="groupPersonInitials" maxlength="3" autocomplete="off" placeholder="z. B. M oder Sch" />
           </div>
         </div>
         <p class="small">Im Text erscheint z. B. „Bei Herrn M.“ oder „Bei Frau Sch.“.</p>
@@ -83,19 +83,19 @@
         <div class="two">
           <div>
             <label class="inline-label">Datum</label>
-            <input id="docDate" type="date" />
+            <input id="docDate" type="date" autocomplete="off" />
           </div>
           <div>
             <label class="inline-label">Uhrzeit / Dauer</label>
-            <input id="docTime" placeholder="z. B. 10:00–10:50 Uhr" />
+            <input id="docTime" autocomplete="off" placeholder="z. B. 10:00–10:50 Uhr" />
           </div>
           <div>
             <label class="inline-label">Gruppenname / Setting</label>
-            <input id="groupName" placeholder="z. B. Musiktherapie Gruppe" />
+            <input id="groupName" autocomplete="off" placeholder="z. B. Musiktherapie Gruppe" />
           </div>
           <div>
             <label class="inline-label">Station</label>
-            <input id="station" placeholder="z. B. Station 3a" />
+            <input id="station" autocomplete="off" placeholder="z. B. Station 3a" />
           </div>
         </div>
       </details>
@@ -183,7 +183,7 @@
 
       <div class="field">
         <label class="block-label">Optionaler Zusatz</label>
-        <textarea id="freeText" placeholder="Besonderheiten, Kontext oder fachliche Ergänzung. Keine Begrenzung."></textarea>
+        <textarea id="freeText" autocomplete="off" placeholder="Besonderheiten, Kontext oder fachliche Ergänzung. Keine Begrenzung."></textarea>
       </div>
     </section>
 
@@ -202,6 +202,6 @@
     </aside>
   </main>
 
-  <script src="app.js?v=8"></script>
+  <script src="app.js?v=9"></script>
 </body>
 </html>
