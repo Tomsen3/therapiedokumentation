@@ -4,7 +4,7 @@ let selects = {};
 let singlePhrases = {};
 
 async function loadBausteine() {
-  const response = await fetch('bausteine.json?v=5', { cache: 'no-store' });
+  const response = await fetch('bausteine.json?v=7', { cache: 'no-store' });
   if (!response.ok) throw new Error('Bausteine konnten nicht geladen werden.');
   const data = await response.json();
   introOptions = data.introOptions || [];
@@ -281,6 +281,17 @@ function fillSingleTemplate(template, context) {
     .replace("{pronoun}", context.pronoun);
 }
 
+function expressionSentenceWithSubject(id, context) {
+  const sentences = {
+    aktiv: context.subject + " brachte sich aktiv und gestaltend ein.",
+    zoegerlich: context.subject + " blieb im musikalischen und verbalen Ausdruck zunächst zögerlich.",
+    beobachtend: context.subject + " nahm überwiegend beobachtend teil.",
+    impulsiv: context.subject + " wirkte im Ausdruck impulsiv und wenig strukturiert.",
+    orientiert: context.subject + " wirkte im Verhalten angepasst und orientiert."
+  };
+  return sentences[id] || "";
+}
+
 function generateSingleObservation(prefix, subjectOverride, pronounOverride, includeExtended = true) {
   const isGroupObservation = prefix.startsWith("Bei ");
   const context = {
@@ -295,17 +306,19 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride, inc
   if (contact) {
     const contactSentence = state.version === "lang" && state.singleContact === "vorsichtig"
       ? (isGroupObservation
-        ? prefix + " erfolgte zunächst eine vorsichtige Kontaktaufnahme."
+        ? prefix + " erfolgte die Kontaktaufnahme zunächst vorsichtig."
         : "Im therapeutischen Kontakt erfolgte zunächst eine vorsichtige Kontaktaufnahme.")
       : (isGroupObservation
-        ? prefix + " war der Kontakt " + contact + "."
+        ? prefix + " war Kontakt " + contact + "."
         : context.subject + " war im Kontakt " + contact + ".");
     lines.push(contactSentence);
   }
 
   const expression = singlePhrases.expression[state.singleExpression];
   if (expression) {
-    const expressionSentence = isGroupObservation
+    const expressionSentence = !isGroupObservation && !contact
+      ? expressionSentenceWithSubject(state.singleExpression, context)
+      : isGroupObservation
       ? expression.group
       : expression.sentence
         ? expression.sentence
@@ -317,7 +330,9 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride, inc
   if (affect) {
     const affectSentence = isGroupObservation
       ? "Affektiv wirkte " + context.subject + " " + affect + "."
-      : "Affektiv wirkte " + context.pronoun + " " + affect + ".";
+      : lines.length
+        ? "Affektiv wirkte " + context.pronoun + " " + affect + "."
+        : "Affektiv wirkte " + context.subject + " " + affect + ".";
     lines.push(affectSentence);
 
     if (state.version === "lang" && state.singleAffect === "angespannt") {
@@ -543,7 +558,7 @@ loadBausteine()
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js?v=5").catch(() => {
+    navigator.serviceWorker.register("./sw.js?v=7").catch(() => {
       // Die App funktioniert auch ohne Service Worker; Installation/Offline-Modus dann ggf. nicht.
     });
   });
