@@ -1,19 +1,19 @@
 :root {
-  --bg: #F3F5F2;
+  --bg: #F4F6F8;
   --surface: #FFFFFF;
-  --surface-2: #EEF2EE;
-  --surface-3: #F8FAF8;
+  --surface-2: #EEF2F5;
+  --surface-3: #F8FAFC;
   --header-bg: #FFFFFF;
-  --text: #17201B;
-  --muted: #647067;
-  --accent: #1F6A4B;
-  --accent-strong: #15533A;
-  --accent-soft: #DDEBE3;
-  --border: #D8DED9;
-  --border-strong: #B8C3BC;
+  --text: #172026;
+  --muted: #65727D;
+  --accent: #486A80;
+  --accent-strong: #2F4F63;
+  --accent-soft: #E1E9EF;
+  --border: #D9E0E5;
+  --border-strong: #AEBBC5;
   --danger: #9B332C;
   --warning: #8A5A20;
-  --shadow: 0 1px 2px rgba(23, 32, 27, 0.06);
+  --shadow: 0 1px 2px rgba(23, 32, 38, 0.06);
   --radius: 8px;
 }
 
@@ -189,7 +189,7 @@ button:disabled {
 
 .core-field,
 .core-block {
-  border-color: rgba(31, 106, 75, 0.42);
+  border-color: rgba(72, 106, 128, 0.42);
   box-shadow: inset 3px 0 0 var(--accent);
 }
 

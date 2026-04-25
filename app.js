@@ -2,7 +2,7 @@ let introOptions = [];
 let methodGroups = [];
 let selects = {};
 let singlePhrases = {};
-const ASSET_VERSION = "13";
+const ASSET_VERSION = "14";
 
 async function loadBausteine() {
   const response = await fetch(`bausteine.json?v=${ASSET_VERSION}`, { cache: 'no-store' });
@@ -389,8 +389,81 @@ function firstExtendedSentence(type, id, context, isGroupObservation) {
   return sentences[type][id] || "";
 }
 
+function shortExtendedSentence(type, id) {
+  const sentences = {
+    regulation: {
+      stabil: "Die Selbstregulation blieb stabil.",
+      unterstuetzung: "Die Selbstregulation war durch Struktur gut unterstützbar.",
+      ueberfordert: "Bei erhöhter Anforderung war Regulationsunterstützung erforderlich.",
+      zunehmend: "Die Selbstregulation gelang zunehmend besser.",
+      struktur: "Auf strukturierende musikalische Impulse erfolgte eine zunehmende Reaktion."
+    },
+    resources: {
+      gut: "Ressourcen waren gut zugänglich.",
+      punktuell: "Ressourcen waren punktuell zugänglich.",
+      erschwert: "Ressourcen waren nur erschwert zugänglich.",
+      musik: "Musikalische Angebote erleichterten den Ressourcenzugang.",
+      kaum: "Ressourcen waren kaum zugänglich."
+    }
+  };
+
+  return sentences[type][id] || "";
+}
+
+function firstShortExtendedSentence(type, id, context, isGroupObservation) {
+  const inPhrase = personInPhrase(context, isGroupObservation);
+  const dative = personDative(context, isGroupObservation);
+  const sentences = {
+    regulation: {
+      stabil: "Die Selbstregulation blieb " + inPhrase + " stabil.",
+      unterstuetzung: "Die Selbstregulation war " + inPhrase + " durch Struktur gut unterstützbar.",
+      ueberfordert: "Bei erhöhter Anforderung war " + inPhrase + " Regulationsunterstützung erforderlich.",
+      zunehmend: "Die Selbstregulation gelang " + dative + " zunehmend besser.",
+      struktur: "Auf strukturierende musikalische Impulse reagierte " + dative + " zunehmend."
+    },
+    resources: {
+      gut: "Ressourcen waren " + inPhrase + " gut zugänglich.",
+      punktuell: "Ressourcen waren " + inPhrase + " punktuell zugänglich.",
+      erschwert: "Ressourcen waren " + inPhrase + " nur erschwert zugänglich.",
+      musik: "Musikalische Angebote erleichterten " + inPhrase + " den Ressourcenzugang.",
+      kaum: "Ressourcen waren " + inPhrase + " kaum zugänglich."
+    }
+  };
+
+  return sentences[type][id] || "";
+}
+
+function contactSentence(id, contact, context, isGroupObservation) {
+  if (isGroupObservation) {
+    const sentences = {
+      gut: context.prefix + " war eine Kontaktaufnahme gut möglich.",
+      vorsichtig: context.prefix + " erfolgte die Kontaktaufnahme zunächst vorsichtig.",
+      wechselhaft: context.prefix + " zeigte sich der Kontakt wechselhaft erreichbar.",
+      vermeidend: context.prefix + " zeigte sich eher vermeidender Kontakt.",
+      schwer: context.prefix + " war eine Kontaktaufnahme erschwert möglich."
+    };
+    return sentences[id] || context.prefix + " zeigte sich ein " + contact + "er Kontakt.";
+  }
+
+  const sentences = {
+    gut: context.subject + " war im Kontakt gut erreichbar.",
+    vorsichtig: context.subject + " nahm den therapeutischen Kontakt zunächst vorsichtig auf.",
+    wechselhaft: context.subject + " zeigte sich im Kontakt wechselhaft erreichbar.",
+    vermeidend: context.subject + " zeigte sich im Kontakt eher vermeidend.",
+    schwer: context.subject + " war im Kontakt erschwert erreichbar."
+  };
+  return sentences[id] || context.subject + " zeigte sich im Kontakt " + contact + ".";
+}
+
 function extendedSentence(type, id, template, context, isGroupObservation, isFirstSentence) {
+  if (state.version === "kurz" && !isFirstSentence) {
+    return shortExtendedSentence(type, id) || fillSingleTemplate(template, context);
+  }
+
   if (isFirstSentence) {
+    if (state.version === "kurz") {
+      return firstShortExtendedSentence(type, id, context, isGroupObservation) || fillSingleTemplate(template, context);
+    }
     return firstExtendedSentence(type, id, context, isGroupObservation) || fillSingleTemplate(template, context);
   }
 
@@ -432,14 +505,7 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride, inc
     ? singlePhrases.groupContact[state.singleContact]
     : singlePhrases.contact[state.singleContact];
   if (contact) {
-    const contactSentence = state.version === "lang" && state.singleContact === "vorsichtig"
-      ? (isGroupObservation
-        ? prefix + " erfolgte die Kontaktaufnahme zunächst vorsichtig."
-        : context.subject + " nahm den therapeutischen Kontakt zunächst vorsichtig auf.")
-      : (isGroupObservation
-        ? prefix + " war der Kontakt " + contact + "."
-        : context.subject + " war im Kontakt " + contact + ".");
-    lines.push(contactSentence);
+    lines.push(contactSentence(state.singleContact, contact, context, isGroupObservation));
   }
 
   const expression = singlePhrases.expression[state.singleExpression];
@@ -560,6 +626,7 @@ function generate() {
   output.value = text || emptyMessageForMode();
   autoResizeOutput();
   updateSectionStatus();
+  showStatus("", "info");
 }
 
 function emptyMessageForMode() {
