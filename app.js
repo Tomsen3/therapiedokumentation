@@ -4,7 +4,7 @@ let selects = {};
 let singlePhrases = {};
 
 async function loadBausteine() {
-  const response = await fetch('bausteine.json?v=3', { cache: 'no-store' });
+  const response = await fetch('bausteine.json?v=4', { cache: 'no-store' });
   if (!response.ok) throw new Error('Bausteine konnten nicht geladen werden.');
   const data = await response.json();
   introOptions = data.introOptions || [];
@@ -158,6 +158,7 @@ function renderSelect(id, options, value) {
 function renderModeVisibility() {
   document.getElementById("patientField").style.display = state.mode === "einzel" ? "block" : "none";
   document.getElementById("groupPersonField").style.display = state.mode === "einzelgruppe" ? "block" : "none";
+  document.getElementById("methodsField").style.display = state.mode === "einzelgruppe" ? "none" : "block";
   document.getElementById("groupCriteria").style.display = state.mode === "gruppe" ? "block" : "none";
   document.getElementById("singleCriteria").style.display = state.mode !== "gruppe" ? "block" : "none";
   document.getElementById("introField").style.display = "block";
@@ -165,6 +166,9 @@ function renderModeVisibility() {
   if (state.mode === "einzel") {
     allMethods().filter(item => item.groupOnly).forEach(item => state.methods.delete(item.id));
     introOptions.filter(item => item.groupOnly).forEach(item => state.intro.delete(item.id));
+  }
+  if (state.mode === "einzelgruppe") {
+    state.methods.clear();
   }
 
   renderIntroOptions();
@@ -276,7 +280,7 @@ function fillSingleTemplate(template, context) {
     .replace("{pronoun}", context.pronoun);
 }
 
-function generateSingleObservation(prefix, subjectOverride, pronounOverride) {
+function generateSingleObservation(prefix, subjectOverride, pronounOverride, includeExtended = state.version === "lang") {
   const isGroupObservation = prefix.startsWith("Bei ");
   const context = {
     subject: subjectOverride || prefix,
@@ -320,7 +324,7 @@ function generateSingleObservation(prefix, subjectOverride, pronounOverride) {
     }
   }
 
-  if (state.version === "lang") {
+  if (includeExtended) {
     const regulation = singlePhrases.regulation[state.singleRegulation];
     if (regulation) {
       lines.push(fillSingleTemplate(
@@ -395,8 +399,7 @@ function generateEinzelGruppe() {
   return [
     generateHeader(),
     generateIntro(),
-    generateMethods(),
-    generateSingleObservation("Bei " + groupPersonLabel(), groupPersonSubject()),
+    generateSingleObservation("Bei " + groupPersonLabel(), groupPersonSubject(), undefined, true),
     generateClosing(),
     state.freeText.trim()
   ].filter(Boolean).join("\n");
@@ -540,7 +543,7 @@ loadBausteine()
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js?v=3").catch(() => {
+    navigator.serviceWorker.register("./sw.js?v=4").catch(() => {
       // Die App funktioniert auch ohne Service Worker; Installation/Offline-Modus dann ggf. nicht.
     });
   });
