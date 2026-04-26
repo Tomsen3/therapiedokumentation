@@ -27,7 +27,7 @@ function showLoadError(error) {
 const state = {
   mode: "gruppe",
   version: "kurz",
-  intro: new Set(["kurze_begruessung"]),
+  intro: new Set(),
   methods: new Set(),
   singlePersonSalutation: "herr",
   singlePersonInitials: "M",

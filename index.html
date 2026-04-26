@@ -9,9 +9,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Therapiedoku" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <link rel="manifest" href="manifest.webmanifest?v=14" />
+<script src="version.js"></script>
+  <script>
+    document.write('<link rel="manifest" href="manifest.webmanifest?v=' + APP_VERSION + '">');
+    document.write('<link rel="stylesheet" href="styles.css?v=' + APP_VERSION + '">');
+  </script>
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <link rel="stylesheet" href="styles.css?v=14" />
 </head>
 <body>
   <header>
@@ -36,7 +39,7 @@
         <div class="segmented" data-group="mode">
           <button type="button" class="active" data-value="gruppe">Gruppendokumentation</button>
           <button type="button" data-value="einzel">Einzeldokumentation</button>
-          <button type="button" data-value="einzelgruppe">Einzelbeobachtung Gruppe</button>
+          <button type="button" data-value="einzelgruppe">Einzelbeobachtung in Gruppe</button>
         </div>
       </div>
 
@@ -216,6 +219,5 @@
     <button type="button" class="btn-danger" id="mobileResetBtn">Reset</button>
   </div>
 
-  <script src="app.js?v=14"></script>
-</body>
+<script>document.write('<script src="app.js?v=' + APP_VERSION + '"><\/script>')</script></body>
 </html>

@@ -1,11 +1,14 @@
-const CACHE_NAME = "therapiedoku-v14";
+importScripts('./version.js');
+
+const CACHE_NAME = "therapiedoku-v" + APP_VERSION;
 const APP_FILES = [
   "./",
   "./index.html",
-  "./styles.css?v=14",
-  "./app.js?v=14",
-  "./bausteine.json?v=14",
-  "./manifest.webmanifest?v=14",
+  "./version.js",
+  "./styles.css?v=" + APP_VERSION,
+  "./app.js?v=" + APP_VERSION,
+  "./bausteine.json?v=" + APP_VERSION,
+  "./manifest.webmanifest?v=" + APP_VERSION,
   "./icons/icon-192.png",
   "./icons/icon-512.png"
 ];
