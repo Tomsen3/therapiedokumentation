@@ -21,44 +21,77 @@ function buildThemenUI(themen) {
   if (!list) return;
 
   themen.forEach(gruppe => {
-    const title = document.createElement('div');
-    title.className = 'method-title';
-    title.style.marginTop = '10px';
-    title.textContent = gruppe.kategorie;
-    list.appendChild(title);
+    const det = document.createElement('details');
+    det.style.cssText = `
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      padding: 8px 12px;
+      margin-bottom: 6px;
+    `;
+    const sum = document.createElement('summary');
+    sum.style.cssText = `
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      list-style: none;
+      padding: 2px 0;
+    `;
+    sum.textContent = gruppe.kategorie;
+    det.appendChild(sum);
 
-    const row = document.createElement('div');
-    row.className = 'row';
+    const inner = document.createElement('div');
+    inner.style.cssText = `
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 8px;
+    `;
 
     gruppe.items.forEach(item => {
       const label = document.createElement('label');
       label.style.cssText = `
-        display: inline-flex; align-items: center; gap: 6px;
-        padding: 5px 10px; border: 1px solid var(--border-strong);
-        border-radius: var(--radius-sm); background: var(--surface);
-        font-size: 0.875rem; cursor: pointer; user-select: none;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 8px;
+        border-radius: var(--radius-sm);
+        font-size: 0.9rem;
+        cursor: pointer;
       `;
       const cb = document.createElement('input');
       cb.type = 'checkbox';
       cb.value = item.text;
-      cb.style.accentColor = 'var(--accent-green)';
-      cb.addEventListener('change', updateThemenPreview);
+      cb.style.cssText = `
+        width: 15px; height: 15px;
+        flex: 0 0 auto;
+        accent-color: var(--accent-green);
+        margin: 0; padding: 0;
+        border: none; border-radius: 0; box-shadow: none;
+      `;
+      cb.addEventListener('change', () => {
+        label.style.background = cb.checked ? 'var(--accent-green-soft)' : 'transparent';
+        updateThemenPreview();
+      });
       label.appendChild(cb);
       label.appendChild(document.createTextNode(item.label));
-      row.appendChild(label);
+      inner.appendChild(label);
     });
-    list.appendChild(row);
+
+    det.appendChild(inner);
+    list.appendChild(det);
   });
 
   function updateThemenPreview() {
     const checked = [...list.querySelectorAll('input[type=checkbox]:checked')]
       .map(cb => cb.value);
-
     if (checked.length === 0) {
       preview.style.display = 'none';
       return;
     }
-
     let satz = '';
     if (checked.length === 1) {
       satz = `Im Mittelpunkt stand ${checked[0]}.`;
@@ -69,7 +102,6 @@ function buildThemenUI(themen) {
       const rest = checked.slice(0, -1).join(', ');
       satz = `Die Stunde berührte Themen wie ${rest} und ${last}.`;
     }
-
     previewText.textContent = satz;
     preview.style.display = 'block';
   }
@@ -78,10 +110,11 @@ function buildThemenUI(themen) {
     const ft = document.getElementById('freeText');
     const satz = previewText.textContent;
     if (!satz) return;
-    ft.value = ft.value
-      ? ft.value.trimEnd() + '\n' + satz
-      : satz;
-    list.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = false);
+    ft.value = ft.value ? ft.value.trimEnd() + '\n' + satz : satz;
+    list.querySelectorAll('input[type=checkbox]').forEach(cb => {
+      cb.checked = false;
+      if (cb.parentElement) cb.parentElement.style.background = 'transparent';
+    });
     preview.style.display = 'none';
     generateText();
   });
