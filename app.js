@@ -347,6 +347,17 @@ function updateSectionStatus() {
     });
     section.classList.toggle("has-value", hasValue);
   });
+
+  // Themen-Feld separat prüfen
+  const themenField = document.getElementById('themenField');
+  if (themenField) {
+    const themenList = document.getElementById('themenList');
+    const hasThemen = themenList
+      ? themenList.querySelectorAll('input[type=checkbox]:checked').length > 0
+      : false;
+    const hasFreeText = Boolean(state.freeText.trim());
+    themenField.classList.toggle('has-value', hasThemen || hasFreeText);
+  }
 }
 
 function renderModeVisibility() {
@@ -979,6 +990,15 @@ function resetAll() {
   generate();
   const firstSegBtn = document.querySelector('[data-group="mode"] button');
   if (firstSegBtn) firstSegBtn.focus();
+  const themenList = document.getElementById('themenList');
+  if (themenList) {
+    themenList.querySelectorAll('input[type=checkbox]').forEach(cb => {
+      cb.checked = false;
+      if (cb.parentElement) cb.parentElement.style.background = 'transparent';
+    });
+  }
+  const themenPreview = document.getElementById('themenPreview');
+  if (themenPreview) themenPreview.style.display = 'none';
 }
 
 function initSelects() {
