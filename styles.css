@@ -685,3 +685,76 @@ details.has-value > summary::before {
 .output.copy-flash {
   animation: copy-flash 0.6s ease-out forwards;
 }
+Gut, alle Patches sind korrekt eingebaut. Jetzt die 5 neuen Features. Alle Patches in der richtigen Reihenfolge:
+
+Patch A – Print-CSS + Drucken-Button (styles.css)
+Ganz ans Ende von styles.css anhängen:
+css/* ANFANG ANHÄNGEN AN styles.css */
+
+/* ── Print ── */
+@media print {
+  body { background: white; padding: 0; }
+  header, .toolbar, .segmented, .field, #introField,
+  #methodsField, #groupCriteria, #singleCriteria,
+  .footer-actions, .mobile-actions, .output-counter,
+  #patientField, #groupPersonField, aside.side > h2,
+  aside.side > .footer-actions:first-of-type,
+  #copyBtnTop, #copyStatusTop,
+  button { display: none !important; }
+  .grid { display: block; }
+  .card.side {
+    display: block !important;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+  .output {
+    border: none;
+    min-height: unset;
+    font-family: Georgia, serif;
+    font-size: 11pt;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    resize: none;
+  }
+  .card.main { display: none !important; }
+}
+/* ── Toast ── */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: var(--accent-strong);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(28,33,40,0.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  z-index: 999;
+  white-space: nowrap;
+}
+.toast.toast-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.toast.toast-success { background: var(--accent-green-strong); }
+.toast.toast-error   { background: var(--danger); }
+
+/* ── Header-Icon ── */
+header h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+header h1 img.header-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  opacity: 0.92;
+  flex: 0 0 auto;
+}

@@ -701,6 +701,10 @@ function generate() {
   autoResizeOutput();
   updateSectionStatus();
   showStatus("", "info");
+  if (window.innerWidth < 900 && text) {
+    const outputEl = document.getElementById("output");
+    outputEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
 }
 
 function emptyMessageForMode() {
@@ -750,10 +754,23 @@ function copyGeneratedText() {
 }
 
 function showStatus(message, type = "info") {
+  // Inline-Spans weiterhin aktualisieren (Fallback / Screenreader)
   document.querySelectorAll(".copy-status").forEach(el => {
     el.textContent = message;
     el.className = "copy-status status-" + type;
   });
+  // Toast
+  if (!message) return;
+  let toast = document.getElementById("appToast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "appToast";
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.className = "toast toast-" + type + " toast-show";
+  clearTimeout(toast._hideTimer);
+  toast._hideTimer = setTimeout(() => toast.classList.remove("toast-show"), 2800);
 }
 
 function visibleDetails() {
@@ -922,6 +939,7 @@ document.getElementById("quickModeBtn").addEventListener("click", toggleQuickMod
 document.getElementById("expandAllBtn").addEventListener("click", () => setDetailsOpen(true));
 document.getElementById("collapseAllBtn").addEventListener("click", () => setDetailsOpen(false));
 document.getElementById("condenseBtn").addEventListener("click", condenseOutputText);
+document.getElementById("printBtn").addEventListener("click", () => window.print());
 
 document.addEventListener("keydown", e => {
   if (e.ctrlKey && e.key === "Enter") {
