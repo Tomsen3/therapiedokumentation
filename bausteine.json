@@ -507,7 +507,7 @@
         "Einzelne Teilnehmende waren teilweise eingebunden."
       ],
       [
-       "randstaendig",
+        "randstaendig",
         "einzelne wenig erreicht",
         "Einzelne Teilnehmende waren über das musiktherapeutische Angebot wenig erreichbar."
       ],
@@ -611,6 +611,12 @@
         "beteiligt",
         "emotional beteiligt",
         "emotional beteiligt"
+      ]
+      ,
+      [
+        "aufgewuehlt",
+        "aufgewühlt / dysreguliert",
+        "emotional aufgewühlt / dysreguliert"
       ]
     ],
     "singleRegulation": [
