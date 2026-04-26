@@ -11,8 +11,81 @@ async function loadBausteine() {
   methodGroups = data.methodGroups || [];
   selects = data.selects || {};
   singlePhrases = data.singlePhrases || {};
+  if (data.themen) buildThemenUI(data.themen);
 }
+function buildThemenUI(themen) {
+  const list = document.getElementById('themenList');
+  const preview = document.getElementById('themenPreview');
+  const previewText = document.getElementById('themenPreviewText');
+  const btn = document.getElementById('themenUebernehmenBtn');
+  if (!list) return;
 
+  themen.forEach(gruppe => {
+    const title = document.createElement('div');
+    title.className = 'method-title';
+    title.style.marginTop = '10px';
+    title.textContent = gruppe.kategorie;
+    list.appendChild(title);
+
+    const row = document.createElement('div');
+    row.className = 'row';
+
+    gruppe.items.forEach(item => {
+      const label = document.createElement('label');
+      label.style.cssText = `
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 5px 10px; border: 1px solid var(--border-strong);
+        border-radius: var(--radius-sm); background: var(--surface);
+        font-size: 0.875rem; cursor: pointer; user-select: none;
+      `;
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.value = item.text;
+      cb.style.accentColor = 'var(--accent-green)';
+      cb.addEventListener('change', updateThemenPreview);
+      label.appendChild(cb);
+      label.appendChild(document.createTextNode(item.label));
+      row.appendChild(label);
+    });
+    list.appendChild(row);
+  });
+
+  function updateThemenPreview() {
+    const checked = [...list.querySelectorAll('input[type=checkbox]:checked')]
+      .map(cb => cb.value);
+
+    if (checked.length === 0) {
+      preview.style.display = 'none';
+      return;
+    }
+
+    let satz = '';
+    if (checked.length === 1) {
+      satz = `Im Mittelpunkt stand ${checked[0]}.`;
+    } else if (checked.length === 2) {
+      satz = `Im Mittelpunkt standen ${checked[0]} und ${checked[1]}.`;
+    } else {
+      const last = checked[checked.length - 1];
+      const rest = checked.slice(0, -1).join(', ');
+      satz = `Die Stunde berührte Themen wie ${rest} und ${last}.`;
+    }
+
+    previewText.textContent = satz;
+    preview.style.display = 'block';
+  }
+
+  btn.addEventListener('click', () => {
+    const ft = document.getElementById('freeText');
+    const satz = previewText.textContent;
+    if (!satz) return;
+    ft.value = ft.value
+      ? ft.value.trimEnd() + '\n' + satz
+      : satz;
+    list.querySelectorAll('input[type=checkbox]').forEach(cb => cb.checked = false);
+    preview.style.display = 'none';
+    generateText();
+  });
+}
 function showLoadError(error) {
   const output = document.getElementById('output');
   output.value = 'Die Textbausteine konnten nicht geladen werden. Bitte die Seite neu laden oder die bausteine.json prüfen.';

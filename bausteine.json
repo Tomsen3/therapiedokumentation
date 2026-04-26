@@ -54,6 +54,48 @@
       "groupOnly": true
     }
   ],
+  "themen": [
+    {
+      "kategorie": "Emotionen & Innenleben",
+      "items": [
+        { "label": "Wut", "text": "Wut" },
+        { "label": "Trauer / Verlust", "text": "Trauer und Verlust" },
+        { "label": "Angst", "text": "Angst" },
+        { "label": "Scham", "text": "Scham" },
+        { "label": "Einsamkeit", "text": "Einsamkeit" },
+        { "label": "Sehnsucht", "text": "Sehnsucht" },
+        { "label": "Verletzungen / Kränkungen", "text": "Verletzungen und Kränkungen" }
+      ]
+    },
+    {
+      "kategorie": "Selbst & Identität",
+      "items": [
+        { "label": "Selbstwirksamkeit", "text": "Selbstwirksamkeit" },
+        { "label": "Selbstbild / Selbstwert", "text": "Selbstbild und Selbstwert" },
+        { "label": "Das innere Kind", "text": "das innere Kind" },
+        { "label": "Kontrolle / Kontrollverlust", "text": "Kontrolle und Kontrollverlust" },
+        { "label": "Grenzen setzen", "text": "das Setzen von Grenzen" }
+      ]
+    },
+    {
+      "kategorie": "Beziehung & Verbindung",
+      "items": [
+        { "label": "Nähe und Distanz", "text": "Nähe und Distanz" },
+        { "label": "Vertrauen", "text": "Vertrauen" },
+        { "label": "Abhängigkeit / Autonomie", "text": "Abhängigkeit und Autonomie" },
+        { "label": "Abschied / Trennung", "text": "Abschied und Trennung" }
+      ]
+    },
+    {
+      "kategorie": "Prozess & Veränderung",
+      "items": [
+        { "label": "Loslassen", "text": "Loslassen" },
+        { "label": "Veränderung / Neuanfang", "text": "Veränderung und Neuanfang" },
+        { "label": "Ressourcen / Stärken", "text": "Ressourcen und Stärken" },
+        { "label": "Hoffnung", "text": "Hoffnung" }
+      ]
+    }
+  ],
   "methodGroups": [
     {
       "title": "Aktivierung & Körper",
