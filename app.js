@@ -2,10 +2,9 @@ let introOptions = [];
 let methodGroups = [];
 let selects = {};
 let singlePhrases = {};
-const ASSET_VERSION = "14";
 
 async function loadBausteine() {
-  const response = await fetch(`bausteine.json?v=${ASSET_VERSION}`, { cache: 'no-store' });
+  const response = await fetch(`bausteine.json?v=${APP_VERSION}`, { cache: 'no-store' });
   if (!response.ok) throw new Error('Bausteine konnten nicht geladen werden.');
   const data = await response.json();
   introOptions = data.introOptions || [];
@@ -447,7 +446,7 @@ function contactSentence(id, contact, context, isGroupObservation) {
 
   const sentences = {
     gut: context.subject + " war im Kontakt gut erreichbar.",
-    vorsichtig: context.subject + " nahm den therapeutischen Kontakt zunächst vorsichtig auf.",
+    vorsichtig: context.subject + " zeigte sich im Kontakt zunächst vorsichtig und zurückhaltend.",
     wechselhaft: context.subject + " zeigte sich im Kontakt wechselhaft erreichbar.",
     vermeidend: context.subject + " zeigte sich im Kontakt eher vermeidend.",
     schwer: context.subject + " war im Kontakt erschwert erreichbar."
@@ -842,7 +841,7 @@ loadBausteine()
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register(`./sw.js?v=${ASSET_VERSION}`).catch(() => {
+    navigator.serviceWorker.register(`./sw.js?v=${APP_VERSION}`).catch(() => {
       // Die App funktioniert auch ohne Service Worker; Installation/Offline-Modus dann ggf. nicht.
     });
   });

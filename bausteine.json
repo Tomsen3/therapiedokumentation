@@ -95,7 +95,8 @@
           "id": "bodypercussion",
           "label": "Bodypercussion",
           "text": "Bodypercussion",
-          "focus": "Rhythmus, Koordination und Aktivierung"
+          "focus": "Rhythmus, Koordination und Aktivierung",
+          "langText": "Bodypercussion wurde zur Förderung von rhythmischer Koordination, Aktivierung und körperlicher Präsenz eingesetzt."
         },
         {
           "id": "rhythmus_instrumente",
@@ -111,6 +112,7 @@
           "label": "Koordination / Synchronisation",
           "text": "koordinative und synchronisierende Gruppenübungen",
           "focus": "Koordination, gemeinsamer Puls und Gruppensynchronisation",
+          "langText": "Koordinative Gruppenübungen dienten der Entwicklung eines gemeinsamen Pulses, der Synchronisation sowie der Orientierung im Gruppengeschehen.",
           "groupOnly": true
         },
         {
@@ -118,6 +120,7 @@
           "label": "TaKeTiNa-orientierte Rhythmusarbeit",
           "text": "TaKeTiNa-orientierte Rhythmusarbeit",
           "focus": "rhythmische Orientierung, Aufmerksamkeit und Selbstregulation",
+          "langText": "TaKeTiNa-orientierte Rhythmusarbeit wurde zur Förderung rhythmischer Orientierung, Aufmerksamkeitssteuerung und Selbstregulation eingesetzt.",
           "groupOnly": true
         }
       ]
@@ -207,6 +210,7 @@
           "label": "Austausch / Rückmeldung",
           "text": "Austausch und Rückmeldungen innerhalb der Gruppe",
           "focus": "Kontaktgestaltung, Rückmeldung und soziale Resonanz",
+          "langText": "Austausch und gegenseitige Rückmeldungen innerhalb der Gruppe förderten Kontaktgestaltung und soziale Resonanz.",
           "groupOnly": true
         }
       ]
@@ -233,6 +237,7 @@
           "label": "Begrüßungsrituale",
           "text": "Begrüßungsrituale",
           "focus": "Kontaktaufnahme und Gruppenorientierung",
+          "langText": "Das Begrüßungsritual diente der Kontaktaufnahme, Gruppenorientierung und einer klaren Rahmung des Beginns.",
           "groupOnly": true
         },
         {

@@ -10,8 +10,6 @@ const APP_FILES = [
   "./bausteine.json?v=" + APP_VERSION,
   "./manifest.webmanifest?v=" + APP_VERSION,
   "./icons/icon-192.png",
-  "./icons/icon-512.png"
-   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./fonts/DM-Sans-300.woff2",
   "./fonts/DM-Sans-400.woff2",
@@ -42,6 +40,7 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
+  if (!event.request.url.startsWith("http")) return;
 
   event.respondWith(
     fetch(event.request)
