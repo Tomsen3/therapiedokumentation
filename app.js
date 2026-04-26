@@ -705,12 +705,12 @@ function generate() {
 
 function emptyMessageForMode() {
   if (state.mode === "einzelgruppe") {
-    return "Für die Einzelbeobachtung bitte Kontakt, Ausdruck, Affekt, Selbstregulation, Ressourcen, Abschluss oder Freitext auswählen.";
+    return "Wähle Optionen, um eine Dokumentation zu generieren.\n\nHinweis: Für die Einzelbeobachtung sind Kontakt, Affekt oder Ausdruck besonders relevant.";
   }
   if (state.mode === "einzel") {
-    return "Für die Einzeldokumentation bitte Einstieg, Inhalt/Aktion, Kontakt, Affekt, Einzelkriterium, Abschluss oder Freitext auswählen.";
+    return "Wähle Optionen, um eine Dokumentation zu generieren.\n\nHinweis: Für die Einzeldokumentation empfehlen sich Einstieg, Methode, Kontakt und Abschluss.";
   }
-  return "Für die Gruppendokumentation bitte Einstieg, Inhalt/Aktion, Wirkung, Verlaufskriterium, Abschluss oder Freitext auswählen.";
+  return "Wähle Optionen, um eine Dokumentation zu generieren.\n\nHinweis: Für die Gruppendokumentation empfehlen sich Einstieg, Methoden und Wirkung.";
 }
 
 function autoResizeOutput() {
@@ -853,6 +853,8 @@ function resetAll() {
   renderModeVisibility();
   renderQuickMode();
   generate();
+  const firstSegBtn = document.querySelector('[data-group="mode"] button');
+  if (firstSegBtn) firstSegBtn.focus();
 }
 
 function initSelects() {
@@ -920,6 +922,23 @@ document.getElementById("quickModeBtn").addEventListener("click", toggleQuickMod
 document.getElementById("expandAllBtn").addEventListener("click", () => setDetailsOpen(true));
 document.getElementById("collapseAllBtn").addEventListener("click", () => setDetailsOpen(false));
 document.getElementById("condenseBtn").addEventListener("click", condenseOutputText);
+
+document.addEventListener("keydown", e => {
+  if (e.ctrlKey && e.key === "Enter") {
+    e.preventDefault();
+    generate();
+    showStatus("Neu generiert.", "info");
+  }
+  if (e.ctrlKey && e.key === "c") {
+    const output = document.getElementById("output");
+    if (document.activeElement === output) {
+      if (output.selectionStart === output.selectionEnd) {
+        e.preventDefault();
+        copyGeneratedText();
+      }
+    }
+  }
+});
 
 loadBausteine()
   .then(() => {
