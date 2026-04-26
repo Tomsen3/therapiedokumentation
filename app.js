@@ -188,6 +188,7 @@ function renderModeVisibility() {
   renderIntroOptions();
   renderMethods();
   renderQuickMode();
+  if (state.quickMode) openCoreDetails();
 }
 
 function renderQuickMode() {
@@ -666,10 +667,7 @@ function visibleDetails() {
 
 function openCoreDetails() {
   visibleDetails().forEach(detail => detail.open = false);
-  document.querySelectorAll("details.core-field").forEach(detail => {
-    if (detail.offsetParent !== null) detail.open = true;
-  });
-}
+ }
 
 function setDetailsOpen(open) {
   visibleDetails().forEach(detail => detail.open = open);
@@ -681,9 +679,10 @@ function toggleQuickMode() {
   renderButtons("version", state.version);
   renderQuickMode();
   if (state.quickMode) {
+    renderModeVisibility();
     openCoreDetails();
     showStatus("Schnelldoku: Kernfelder sind geöffnet.", "info");
-  } else {
+} else {
     showStatus("Alle Felder sind wieder sichtbar.", "info");
   }
   generate();

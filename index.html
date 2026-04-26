@@ -6,7 +6,7 @@
   <title>Therapiedokumentation</title>
   <meta name="theme-color" content="#486A80" />
   <meta name="application-name" content="Therapiedokumentation" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-title" content="Therapiedoku" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <script src="version.js"></script>
@@ -15,6 +15,7 @@
     document.write('<link rel="stylesheet" href="styles.css?v=' + APP_VERSION + '">');
   </script>
   <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="icon" type="image/png" href="icons/icon-192.png" />
 </head>
 <body>
   <header>
@@ -119,7 +120,7 @@
         <div class="row" id="introOptions"></div>
       </details>
 
-      <details class="field optional-field" id="methodsField" data-watch="methods">
+      <details class="field optional-field core-field" id="methodsField" data-watch="methods">
         <summary>Inhalte und Aktionen <span class="badge">max. 6 auswählen</span></summary>
         <div id="methodNotice" class="notice">Mehr als sechs Methoden machen die Dokumentation träge. Bitte höchstens sechs auswählen.</div>
         <div id="singleModeNotice" class="notice">Dieser Baustein ist für reine Einzeldokumentation nur eingeschränkt sinnvoll und wurde deaktiviert.</div>
@@ -173,7 +174,7 @@
           <summary>Affekt</summary>
           <select id="singleAffect"></select>
         </details>
-        <details class="field optional-field" data-watch="singleExpression">
+        <details class="field optional-field core-field" data-watch="singleExpression">
           <summary>Ausdruck / Verhalten</summary>
           <select id="singleExpression"></select>
         </details>
