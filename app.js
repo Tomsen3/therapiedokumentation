@@ -111,12 +111,13 @@ function buildThemenUI(themen) {
     const satz = previewText.textContent;
     if (!satz) return;
     ft.value = ft.value ? ft.value.trimEnd() + '\n' + satz : satz;
+    state.freeText = ft.value;
     list.querySelectorAll('input[type=checkbox]').forEach(cb => {
       cb.checked = false;
       if (cb.parentElement) cb.parentElement.style.background = 'transparent';
     });
     preview.style.display = 'none';
-    generateText();
+    generate();
   });
 }
 function showLoadError(error) {
@@ -769,8 +770,8 @@ function generateGruppe() {
     generateIntro(),
     generateMethods(),
     generateGroupCriteria(),
-    generateClosing(),
-    state.freeText.trim()
+    state.freeText.trim(),
+    generateClosing()
   ].filter(Boolean).join("\n");
 }
 
@@ -781,8 +782,8 @@ function generateEinzel() {
     generateIntro(),
     generateMethods(),
     generateSingleObservation(single.subject, single.subject, single.pronoun, true, single.dative),
-    generateClosing(),
-    state.freeText.trim()
+    state.freeText.trim(),
+    generateClosing()
   ].filter(Boolean).join("\n");
 }
 
@@ -790,8 +791,8 @@ function generateEinzelGruppe() {
   return [
     generateHeader(),
     generateSingleObservation("Bei " + groupPersonLabel(), groupPersonSubject(), undefined, true),
-    generateClosing(),
-    state.freeText.trim()
+    state.freeText.trim(),
+    generateClosing()
   ].filter(Boolean).join("\n");
 }
 
