@@ -1,4 +1,4 @@
-importScripts('./version.js');
+ importScripts('./version.js');
 
 const CACHE_NAME = "therapiedoku-v" + APP_VERSION;
 const APP_FILES = [
@@ -11,6 +11,13 @@ const APP_FILES = [
   "./manifest.webmanifest?v=" + APP_VERSION,
   "./icons/icon-192.png",
   "./icons/icon-512.png"
+   "./icons/icon-192.png",
+  "./icons/icon-512.png",
+  "./fonts/DM-Sans-300.woff2",
+  "./fonts/DM-Sans-400.woff2",
+  "./fonts/DM-Sans-500.woff2",
+  "./fonts/DM-Sans-600.woff2",
+  "./fonts/DM-Serif-Display-400.woff2"
 ];
 
 self.addEventListener("install", event => {
