@@ -94,49 +94,123 @@ function renderIntroOptions() {
 function renderMethods() {
   const el = document.getElementById("methodList");
   el.innerHTML = "";
+
+  // Trigger-Zeile (Dropdown-Button)
+  const trigger = document.createElement("div");
+  trigger.className = "method-dropdown-trigger";
+  trigger.setAttribute("role", "button");
+  trigger.setAttribute("tabindex", "0");
+
+  const triggerLabel = document.createElement("span");
+  triggerLabel.className = "method-dropdown-label";
+
+  const triggerCount = document.createElement("span");
+  triggerCount.className = "method-dropdown-count";
+
+  trigger.appendChild(triggerLabel);
+  trigger.appendChild(triggerCount);
+
+  // Dropdown-Menü
+  const menu = document.createElement("div");
+  menu.className = "method-dropdown-menu";
+  menu.setAttribute("aria-hidden", "true");
+
+  function updateTrigger() {
+    const selected = Array.from(state.methods).map(id => {
+      const m = getMethod(id);
+      return m ? m.label : "";
+    }).filter(Boolean);
+    triggerLabel.textContent = selected.length
+      ? selected.join(", ")
+      : "Methoden auswählen …";
+    triggerCount.textContent = `${state.methods.size} / 6`;
+    triggerCount.className = "method-dropdown-count" + (state.methods.size > 0 ? " has-selection" : "");
+  }
+
   methodGroups.forEach(group => {
-    const wrap = document.createElement("div");
-    wrap.className = "method-group";
-    const title = document.createElement("div");
-    title.className = "method-title";
-    title.textContent = group.title;
-    const row = document.createElement("div");
-    row.className = "row";
+    const groupTitle = document.createElement("div");
+    groupTitle.className = "method-dropdown-group-title";
+    groupTitle.textContent = group.title;
+    menu.appendChild(groupTitle);
 
     group.items.forEach(item => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.textContent = item.label;
       const disabledInSingle = state.mode === "einzel" && item.groupOnly;
-      btn.disabled = disabledInSingle;
-      btn.className = state.methods.has(item.id) ? "active" : "";
+      const row = document.createElement("label");
+      row.className = "method-dropdown-item" + (disabledInSingle ? " disabled" : "");
 
-      btn.addEventListener("click", () => {
-        if (disabledInSingle) {
-          document.getElementById("singleModeNotice").classList.add("show");
-          setTimeout(() => document.getElementById("singleModeNotice").classList.remove("show"), 2500);
-          return;
-        }
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = state.methods.has(item.id);
+      cb.disabled = disabledInSingle;
 
-        if (state.methods.has(item.id)) {
-          state.methods.delete(item.id);
-        } else if (state.methods.size < 6) {
-          state.methods.add(item.id);
+      cb.addEventListener("change", () => {
+        if (disabledInSingle) return;
+        if (cb.checked) {
+          if (state.methods.size < 6) {
+            state.methods.add(item.id);
+          } else {
+            cb.checked = false;
+            document.getElementById("methodNotice").classList.add("show");
+            setTimeout(() => document.getElementById("methodNotice").classList.remove("show"), 2500);
+            return;
+          }
         } else {
-          document.getElementById("methodNotice").classList.add("show");
-          setTimeout(() => document.getElementById("methodNotice").classList.remove("show"), 2500);
+          state.methods.delete(item.id);
         }
-        renderMethods();
+        updateTrigger();
         generate();
       });
 
-      row.appendChild(btn);
+      const labelText = document.createElement("span");
+      labelText.textContent = item.label;
+
+      row.appendChild(cb);
+      row.appendChild(labelText);
+      menu.appendChild(row);
     });
 
-    wrap.appendChild(title);
-    wrap.appendChild(row);
-    el.appendChild(wrap);
+    const sep = document.createElement("div");
+    sep.className = "method-dropdown-sep";
+    menu.appendChild(sep);
   });
+
+  // Letzten Separator entfernen
+  const lastSep = menu.querySelector(".method-dropdown-sep:last-child");
+  if (lastSep) lastSep.remove();
+
+  // Toggle öffnen/schließen
+  let isOpen = false;
+  function openMenu() {
+    isOpen = true;
+    menu.classList.add("open");
+    menu.setAttribute("aria-hidden", "false");
+  }
+  function closeMenu() {
+    isOpen = false;
+    menu.classList.remove("open");
+    menu.setAttribute("aria-hidden", "true");
+  }
+
+  trigger.addEventListener("click", () => isOpen ? closeMenu() : openMenu());
+  trigger.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); isOpen ? closeMenu() : openMenu(); }
+    if (e.key === "Escape") closeMenu();
+  });
+
+  // Schließen bei Klick außerhalb
+  document.addEventListener("click", function handler(e) {
+    if (!trigger.contains(e.target) && !menu.contains(e.target)) {
+      closeMenu();
+    }
+  });
+
+  updateTrigger();
+
+  const wrap = document.createElement("div");
+  wrap.className = "method-dropdown-wrap";
+  wrap.appendChild(trigger);
+  wrap.appendChild(menu);
+  el.appendChild(wrap);
 }
 
 function renderSelect(id, options, value) {
@@ -643,12 +717,33 @@ function autoResizeOutput() {
   const output = document.getElementById("output");
   output.style.height = "auto";
   output.style.height = output.scrollHeight + "px";
+
+  // Zeichenzähler
+  let counter = document.getElementById("outputCounter");
+  if (!counter) {
+    counter = document.createElement("p");
+    counter.id = "outputCounter";
+    counter.className = "output-counter";
+    output.insertAdjacentElement("afterend", counter);
+  }
+
+  const text = output.value.trim();
+  if (!text) {
+    counter.textContent = "";
+    return;
+  }
+  const chars = text.length;
+  const sentences = text.split(/[.!?]+/).map(s => s.trim()).filter(Boolean).length;
+  counter.textContent = `${sentences} ${sentences === 1 ? "Satz" : "Sätze"} · ${chars} Zeichen`;
 }
 
 function copyGeneratedText() {
-  const text = document.getElementById("output").value;
+  const output = document.getElementById("output");
+  const text = output.value;
   navigator.clipboard.writeText(text).then(() => {
     showStatus("Text wurde kopiert.", "success");
+    output.classList.add("copy-flash");
+    setTimeout(() => output.classList.remove("copy-flash"), 600);
   }).catch(() => {
     showStatus("Kopieren nicht möglich. Text bitte manuell markieren.", "error");
   });
