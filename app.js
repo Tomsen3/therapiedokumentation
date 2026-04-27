@@ -978,8 +978,6 @@ function resetAll() {
   state.quickMode = false;
 
   ["docDate","docTime","groupName","station","singlePersonInitials","groupPersonInitials","freeText"].forEach(id => document.getElementById(id).value = "");
-  document.getElementById("singlePersonInitials").value = "";
-  document.getElementById("groupPersonInitials").value = "";
   showStatus("", "info");
   initSelects();
   renderIntroOptions();
