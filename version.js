@@ -1,2 +1,2 @@
 // Zentrale Versionsnummer – hier bei jedem Release hochzählen
-const APP_VERSION = "2.6";
+const APP_VERSION = "2.7";

@@ -771,3 +771,69 @@ header h1 img.header-icon {
   padding: 8px 13px;
   width: 100%;
 }
+Ich habe alles was ich brauche. Jetzt der Dark-Mode-Patch:
+
+Patch 8 – styles.css: Dark Mode
+Ans Ende von styles.css anhängen (nach Zeile 773, nach der letzten geschlossenen }):
+css/* ANFANG ANHÄNGEN AN styles.css */
+
+/* ── Dark Mode ── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:                #111A20;
+    --surface:           #1A2530;
+    --surface-2:         #1F2D38;
+    --surface-3:         #1D2A35;
+    --header-bg:         #1A2530;
+    --text:              #E2EAF0;
+    --muted:             #7A9AAD;
+    --accent:            #6B9BB0;
+    --accent-strong:     #8BB4C8;
+    --accent-soft:       #1E3040;
+    --accent-green:      #5A9E8F;
+    --accent-green-strong: #7BBDAE;
+    --accent-green-soft: #1A3530;
+    --border:            #2A3D4A;
+    --border-strong:     #3A5060;
+    --danger:            #C0625A;
+    --warning:           #C49A40;
+    --shadow:            0 1px 4px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2);
+    --shadow-sm:         0 1px 2px rgba(0, 0, 0, 0.25);
+  }
+
+  /* Notice-Box (Warnung) anpassen – war hartkodiert hell */
+  .notice {
+    background: #2A2010;
+    border-color: #5A4010;
+    color: var(--warning);
+  }
+
+  /* Mobile Action Bar – war hartkodiert dunkel, passt aber auch im Dark Mode */
+  @media (max-width: 899px) {
+    .mobile-actions {
+      background: rgba(17, 26, 32, 0.97);
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  /* select-Elemente: Systemdarstellung im Dark Mode oft grau, explizit überschreiben */
+  select {
+    color-scheme: dark;
+  }
+
+  /* Checkbox accent im Dark Mode etwas heller für Kontrast */
+  input[type="checkbox"] {
+    accent-color: var(--accent-green);
+  }
+
+  /* Output-Textarea: Monospace-Text im Dunkeln etwas aufhellen */
+  .output {
+    color: #D4E4EE;
+  }
+
+  /* Kopier-Flash-Animation im Dark Mode */
+  @keyframes copy-flash {
+    0%   { background: var(--accent-green-soft); border-color: var(--accent-green); }
+    100% { background: var(--surface); border-color: var(--border); }
+  }
+}
