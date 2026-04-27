@@ -1,7 +1,7 @@
 {
   "name": "Therapiedokumentation",
   "short_name": "Therapiedoku",
-  "description": "Generator fuer musiktherapeutische Dokumentationstexte.",
+  "description": "Generator für musiktherapeutische Dokumentationstexte.",
   "lang": "de",
   "start_url": "./",
   "scope": "./",
