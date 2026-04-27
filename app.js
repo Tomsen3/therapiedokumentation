@@ -257,8 +257,7 @@ function renderMethods() {
             state.methods.add(item.id);
           } else {
             cb.checked = false;
-            document.getElementById("methodNotice").classList.add("show");
-            setTimeout(() => document.getElementById("methodNotice").classList.remove("show"), 2500);
+            showStatus("Maximal 6 Methoden auswählen. Bitte zuerst eine abwählen.", "info");
             return;
           }
         } else {
@@ -394,11 +393,19 @@ function renderButtons(groupName, value) {
   });
 }
 
+function formatDateDE(isoDate) {
+  // Erwartet ISO-Format YYYY-MM-DD vom date-Input, gibt TT.MM.JJJJ zurück
+  if (!isoDate) return "";
+  const parts = isoDate.split("-");
+  if (parts.length !== 3) return isoDate; // Fallback: unverändert ausgeben
+  return parts[2] + "." + parts[1] + "." + parts[0];
+}
+
 function generateHeader() {
   const parts = [];
   if (state.groupName) parts.push(state.groupName);
   if (state.station) parts.push(state.station);
-  if (state.docDate) parts.push(state.docDate);
+  if (state.docDate) parts.push(formatDateDE(state.docDate));
   if (state.docTime) parts.push(state.docTime);
   return parts.length ? parts.join(" | ") : "";
 }
@@ -930,17 +937,23 @@ function condenseOutputText() {
     .split("\n")
     .map(line => line.trim())
     .filter(Boolean)
-    .filter(line => !line.startsWith("Durch den Wechsel der methodischen Formen"))
-    .filter(line => !line.startsWith("Der methodische Fokus lag auf"))
+    // Zeilen entfernen, die einen methodischen Überblickssatz enthalten
+    .filter(line => !/Durch den Wechsel der methodischen Formen/i.test(line))
+    .filter(line => !/Der methodische Fokus lag auf/i.test(line))
     .map(line => line
-      .replace("Zu Beginn erfolgte eine kurze Begrüßung. ", "")
-      .replace("Zu Beginn erfolgten Begrüßung und kurze Orientierung. ", "")
-      .replace("Als zentraler musiktherapeutischer Baustein wurde ", "Methodisch wurde ")
-      .replace("Eingesetzt wurden ", "Methodisch: ")
-      .replace("Methodisch kamen ", "Methodisch: ")
-      .replace(" zum Einsatz.", ".")
-      .replace("Die Stunde wirkte insgesamt ", "Wirkung: ")
-      .replace("Eine Fortführung im Rahmen des Behandlungsplans ist vorgesehen.", "Fortführung im Behandlungsplan vorgesehen."))
+      // Einstiegssätze kürzen
+      .replace(/Zu Beginn erfolgte eine kurze Begrüßung\.?\s*/i, "")
+      .replace(/Zu Beginn erfolgten Begrüßung und kurze Orientierung\.?\s*/i, "")
+      // Methodenformulierungen vereinfachen
+      .replace(/Als zentraler musiktherapeutischer Baustein wurde /i, "Methodisch wurde ")
+      .replace(/Eingesetzt wurden /i, "Methodisch: ")
+      .replace(/Methodisch kamen /i, "Methodisch: ")
+      .replace(/ zum Einsatz\./i, ".")
+      // Wirkungssatz kürzen
+      .replace(/Die Stunde wirkte insgesamt /i, "Wirkung: ")
+      // Abschlusssatz kürzen
+      .replace(/Eine Fortführung im Rahmen des Behandlungsplans ist vorgesehen\./i,
+               "Fortführung im Behandlungsplan vorgesehen."))
     .join("\n");
 
   output.value = condensed;

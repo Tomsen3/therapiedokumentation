@@ -1,4 +1,4 @@
- importScripts('./version.js');
+importScripts('./version.js');
 
 const CACHE_NAME = "therapiedoku-v" + APP_VERSION;
 const APP_FILES = [
@@ -38,17 +38,21 @@ self.addEventListener("activate", event => {
   );
 });
 
+// Cache-first: Erst Cache prüfen, bei Miss Netz versuchen und Cache aktualisieren.
+// Vorteil: App startet auch beim allerersten Offline-Aufruf nach Installation sofort.
 self.addEventListener("fetch", event => {
   if (event.request.method !== "GET") return;
   if (!event.request.url.startsWith("http")) return;
 
   event.respondWith(
-    fetch(event.request)
-      .then(response => {
+    caches.match(event.request).then(cached => {
+      if (cached) return cached;
+      // Kein Cache-Treffer → Netz versuchen und Antwort für spätere Aufrufe cachen
+      return fetch(event.request).then(response => {
         const copy = response.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(event.request, copy));
         return response;
-      })
-      .catch(() => caches.match(event.request).then(cached => cached || caches.match("./index.html")))
+      }).catch(() => caches.match("./index.html"));
+    })
   );
 });
